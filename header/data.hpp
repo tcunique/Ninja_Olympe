@@ -25,3 +25,7 @@ const int CONST_GRAVITY = 2;
 
 // Saut 
 extern int JUMP_COUNT;
+
+// Block
+const int CONST_BLOCK_WIDTH = 1000;
+const int CONST_BLOCK_HEIGHT = 100;

@@ -45,6 +45,9 @@ class Thomas : public Player
         // Jump animation
         unsigned int jump_count;
 
+        // Run
+        unsigned int run_count;
+
         // Speed of animation
         sf::Clock clock;
         float fpsCount;
@@ -55,4 +58,5 @@ class Thomas : public Player
         bool idle;
         bool jump;
         bool walk_state;
+        bool run_state;
 };

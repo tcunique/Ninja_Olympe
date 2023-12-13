@@ -36,6 +36,10 @@ class Player : public Person
         sf::Sprite spriteJump;
         sf::Texture textureJump;
 
+        // Le perso en run
+        sf::Sprite spriteRun;
+        sf::Texture textureRun;
+
         // Vie, argent
         float hp;
         int billet;

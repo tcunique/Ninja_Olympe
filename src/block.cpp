@@ -7,8 +7,8 @@ block::block()
 {
     pos_x = 100;
     pos_y = 700;
-    width = 300;
-    height = 100;
+    width = CONST_BLOCK_WIDTH;
+    height = CONST_BLOCK_HEIGHT;
     blockShape.setSize(sf::Vector2f(width, height));
     blockShape.setFillColor(sf::Color::White);
     blockShape.setPosition(pos_x, pos_y);
