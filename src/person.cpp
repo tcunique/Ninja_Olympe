@@ -7,6 +7,12 @@ Person::Person()
     y = CONST_POSITION_Y;
     speed = CONST_PLAYER_SPEED;
     onBlock = false;
+    gravity = 0;
+}
+
+float Person::getGravity()
+{
+    return gravity;
 }
 
 Person::~Person()
@@ -26,6 +32,11 @@ void Person::setY(float y)
 void Person::setSpeed(float speed)
 {
     this->speed = speed;
+}
+
+void Person::setGravity(float gravity)
+{
+    this->gravity = gravity;
 }
 
 void Person::setonBlock(bool on)

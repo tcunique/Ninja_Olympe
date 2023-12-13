@@ -67,12 +67,13 @@ sf::RectangleShape block::getShape()
 void block::presence(Thomas &thomas)
 {
     sf::Vector2f p_pos = thomas.getHitbox().getPosition();
-    if ((p_pos.y + CONST_HITBOX_HEIGHT) <= (pos_y + 10) && (p_pos.y + CONST_HITBOX_HEIGHT) >= (pos_y))
+    if ((p_pos.y + CONST_HITBOX_HEIGHT) >= (pos_y + 10))
     {
         if (((p_pos.x >= pos_x) && (p_pos.x <= (pos_x + width))) || ((p_pos.x + CONST_HITBOX_WIDTH >= pos_x) && (p_pos.x + CONST_HITBOX_WIDTH <= (pos_x + width))))
         {
             thomas.setonBlock(true);
             std::cout << "on block" << std::endl;
+            thomas.setJumpCount(1);
         }
         else
         {

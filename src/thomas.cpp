@@ -16,6 +16,7 @@ Thomas::Thomas()
 
     idle = true;
     jump = false;
+    walk_state = false;
 
     spriteLaunch();
 
@@ -41,6 +42,11 @@ sf::RectangleShape Thomas::getHitbox()
     return hitbox;
 }
 
+unsigned int Thomas::getJumpCount()
+{
+    return jump_count;
+}
+
 void Thomas::setIdle(bool resp)
 {
     idle = resp;
@@ -49,6 +55,11 @@ void Thomas::setIdle(bool resp)
 void Thomas::setJump(bool resp)
 {
     jump = resp;
+}
+
+void Thomas::setJumpCount(unsigned int count)
+{
+    jump_count = count;
 }
 
 void Thomas::spriteWalkL()
@@ -104,7 +115,7 @@ sf::Sprite Thomas::animationJump()
 {
     if (jump_count * 128 >= textureJump.getSize().x)
     {
-        jump_count = 1;
+        jump_count = 9;
     }
     if (walk.y == Dir::Right)
     {
@@ -113,6 +124,7 @@ sf::Sprite Thomas::animationJump()
     {
         spriteJump.setTextureRect(sf::IntRect(jump_count * 128, 0, -128, 128));
     }
+    jump_count++;
     fpsCount = 0;
     return spriteJump;
 }
@@ -145,7 +157,6 @@ sf::Sprite Thomas::animationWalk()
 sf::Sprite Thomas::animationIdle()
 {
 //Respiration
-    idle_count++;
     if (idle_count * 128 >= textureIdle.getSize().x)
     {
         idle_count = 1;
@@ -158,6 +169,7 @@ sf::Sprite Thomas::animationIdle()
         spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, -128, 128));
     }
     fpsCount = 0;
+    idle_count++;
     return spriteIdle;
 }
 sf::Sprite Thomas::animation()
@@ -171,7 +183,7 @@ sf::Sprite Thomas::animation()
     if (fpsCount >= switchFps)
     {
         // Vérifie s'il y a un input ou non, si non on fait l'anim de la respiration
-        if (jump == true)
+        if (jump == true || (jump == false && onBlock == false))
         {
             return animationJump();
         } else if (idle == false && jump == false)
@@ -183,7 +195,7 @@ sf::Sprite Thomas::animation()
         }
     } else 
     {
-        if (jump == true)
+        if (jump == true || (jump == false && onBlock == false))
         {
             return spriteJump;
         } else if (idle == false && jump == false)

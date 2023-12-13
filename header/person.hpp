@@ -15,11 +15,13 @@ class Person
         void setY(float y);
         void setSpeed(float speed);
         void setonBlock(bool on);
+        void setGravity(float gravity);
 
         // Permet de récupérer les attributs du perso
         float getX();
         float getY();
         float getSpeed();
+        float getGravity();
         bool getonBlock();
 
         // Permet de déplacer le perso
@@ -30,4 +32,7 @@ class Person
         float y;
         float speed;
         bool onBlock;
+
+        // gravity speed
+        float gravity;
 };

@@ -11,10 +11,12 @@ class Thomas : public Player
         std::string getName();
         bool getIdle();
         sf::RectangleShape getHitbox();
+        unsigned int getJumpCount();
 
         //Setter
         void setIdle(bool resp);
         void setJump(bool resp);
+        void setJumpCount(unsigned int count);
 
         // Animation
         sf::Sprite animation();
@@ -40,7 +42,7 @@ class Thomas : public Player
         // Idle animation
         unsigned int idle_count;
 
-        // Jump
+        // Jump animation
         unsigned int jump_count;
 
         // Speed of animation
@@ -52,4 +54,5 @@ class Thomas : public Player
         // state
         bool idle;
         bool jump;
+        bool walk_state;
 };

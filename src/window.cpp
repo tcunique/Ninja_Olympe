@@ -109,7 +109,7 @@ void Interface::checkInputSpace()
     if (jump > 0)
     {
         setText("Space");
-        p1.move(0, -1);
+        p1.move(0, -4);
         jump--;
         p1.setJump(true);
     } else 
@@ -122,12 +122,14 @@ void Interface::checkInput()
 {
     if (!p1.getonBlock() && jump == false)
     {
-        p1.move(0, CONST_GRAVITY);
+        p1.move(0, CONST_GRAVITY * p1.getGravity());
+        p1.setGravity(p1.getGravity() + 0.1);
     } else 
     {
         if (input.getButton().espace && p1.getonBlock())
         {
-            jump = 10;
+            jump = 30;
+            p1.setGravity(2);
         }
     }
     checkInputSpace();

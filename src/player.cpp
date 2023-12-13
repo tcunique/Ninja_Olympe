@@ -13,23 +13,12 @@ Player::~Player()
 
 void Player::move(float movex, float movey)
 {
-    if (onBlock == false)
-    {
-        spriteIdle.move(movex, movey);
-        spriteWalk.move(movex, movey);
-        spriteJump.move(movex, movey);
-        hitbox.move(movex, movey);
-        setX(getX() + movex);
-        setY(getY() + movey);
-    } else 
-    {
-        spriteIdle.move(movex, movey);
-        spriteWalk.move(movex, movey);
-        spriteJump.move(movex, movey);
-        hitbox.move(movex, movey);
-        setX(getX() + movex);
-        setY(getY() + movey);
-    }
+    spriteIdle.move(movex, movey);
+    spriteWalk.move(movex, movey);
+    spriteJump.move(movex, movey);
+    hitbox.move(movex, movey);
+    setX(getX() + movex);
+    setY(getY() + movey);
 }
 
 sf::Sprite Player::getSpriteWalk()
