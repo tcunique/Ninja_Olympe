@@ -3,11 +3,13 @@
 #include "../header/data.hpp"
 #include "../header/block.hpp"
 
+
 Interface::Interface()
 {
     interface.create(VideoMode(CONST_WIDTH, CONST_HEIGHT, 32), CONST_TITLE);
     interface.setVerticalSyncEnabled(true);
     jump = 0;
+    world.createMap();
 }
 
 Interface::~Interface()
@@ -35,6 +37,9 @@ void Interface::Launch()
     LoadFont();
     setText("Hello World");
 
+    // Mettre la couleur de fond à noir
+    clear();
+
     while (interface.isOpen())
     {
         // Boucle d'évènements
@@ -42,12 +47,24 @@ void Interface::Launch()
         {
             input.InputHandler(event, interface);
         }
-        // Mettre la couleur de fond à noir
-        clear();
+        
+        // Chargement de l'image du fond
+        if (!backgroundTexture.loadFromFile("sprite/Nature.png"))
+        {
+            std::cout << "Erreur lors du chargement de l'image du fond" << std::endl;
+        }
+        backgroundTexture.setSmooth(true);
+        backgroundSprite.setScale(1, 1); // Aggrandi l'image de fond pour qu'elle soit cohérente avec la taille de la fenetre
+        backgroundSprite.setTexture(backgroundTexture);
+
+        // Affichage du fond
+        interface.draw(backgroundSprite);
 
         // Vérification des inputs
         checkInput();
 
+        // Create Map
+        loadMap();
 
         // Vérification de présence
         bloc.presence(p1);
@@ -129,7 +146,7 @@ void Interface::checkInput()
         if (input.getButton().espace && p1.getonBlock())
         {
             jump = 30;
-            p1.setGravity(2);
+            p1.setGravity(1);
         }
     }
     checkInputSpace();
@@ -145,4 +162,12 @@ void Interface::checkInput()
     }
 
     p1.setIdle(true);
+}
+
+void Interface::loadMap() {
+    std::vector<block *> vect = world.getMonde();
+
+    for (std::size_t i = 0; i < vect.size(); i++) {
+        interface.draw(vect[i]->getSprite());
+    }
 }

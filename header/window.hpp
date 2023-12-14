@@ -1,9 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "../header/input.hpp"
-#include "../header/thomas.hpp"
-#include "../header/block.hpp"
+#include "input.hpp"
+#include "thomas.hpp"
+#include "block.hpp"
+#include "map.hpp"
 #include <vector>
 
 using namespace sf;
@@ -20,7 +21,13 @@ class Interface
         Thomas p1;
         block bloc;
 
+        Map world;
+
         int jump;
+
+        // Ajout de la texture et du sprite pour le fond d'écran
+        Texture backgroundTexture;
+        Sprite backgroundSprite;
 
     public:
         // Constructeur et destructeur de la fenêtre
@@ -34,6 +41,9 @@ class Interface
 
         // Boucle principale
         void Launch();
+
+        //Background
+        void loadMap();
 
         // Police de caractère
         void LoadFont();

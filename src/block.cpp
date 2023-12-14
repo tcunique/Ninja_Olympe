@@ -5,14 +5,23 @@ int JUMP_COUNT = 10/* some initial value */;
 
 block::block()
 {
-    pos_x = 100;
-    pos_y = 700;
-    width = CONST_BLOCK_WIDTH;
-    height = CONST_BLOCK_HEIGHT;
-    blockShape.setSize(sf::Vector2f(width, height));
-    blockShape.setFillColor(sf::Color::White);
-    blockShape.setPosition(pos_x, pos_y);
 }
+
+block::block(float x, float y, float width, float height, std::string path) {
+    pos_x = x;
+    pos_y = y;
+    this->width = width;
+    this->height = height;
+    if(!blockTexture.loadFromFile(path))
+    {
+        std::cout << "Error loading block texture" << std::endl;
+    }
+    blockTexture.setSmooth(true);
+    blockSprite.setTexture(blockTexture);
+    blockSprite.setScale(width, height);
+    blockSprite.setPosition(pos_x, pos_y);
+}
+
 
 block::~block()
 {
@@ -61,6 +70,16 @@ float block::getHeight()
 sf::RectangleShape block::getShape()
 {
     return blockShape;
+}
+
+sf::Texture block::getTexture()
+{
+    return blockTexture;
+}
+
+sf::Sprite block::getSprite()
+{
+    return blockSprite;
 }
 
 

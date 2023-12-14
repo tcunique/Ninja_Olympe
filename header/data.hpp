@@ -3,8 +3,8 @@
 
 
 // DImension de la fenêtre
-const int CONST_WIDTH = 1920;
-const int CONST_HEIGHT = 1080;
+const int CONST_WIDTH = 1600;
+const int CONST_HEIGHT = 1000;
 const std::string CONST_TITLE = "Name Game";
 
 // Information sur le joueur
