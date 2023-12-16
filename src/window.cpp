@@ -1,5 +1,5 @@
 #include "../header/window.hpp"
-#include "../header/thomas.hpp"
+#include "../header/ninja.hpp"
 #include "../header/data.hpp"
 #include "../header/block.hpp"
 
@@ -7,7 +7,7 @@ Interface::Interface()
 {
     interface.create(VideoMode(CONST_WIDTH, CONST_HEIGHT, 32), CONST_TITLE);
     interface.setVerticalSyncEnabled(true);
-    jump = 0;
+    world.createMap();
 }
 
 Interface::~Interface()
@@ -35,6 +35,7 @@ void Interface::Launch()
     LoadFont();
     setText("Hello World");
 
+    
     while (interface.isOpen())
     {
         // Boucle d'évènements
@@ -45,18 +46,33 @@ void Interface::Launch()
         // Mettre la couleur de fond à noir
         clear();
 
-        // Vérification des inputs
-        checkInput();
+        // Chargement de l'image du fond
+        if (!backgroundTexture.loadFromFile("sprite/Nature.png"))
+        {
+            std::cout << "Erreur lors du chargement de l'image du fond" << std::endl;
+        }
+        backgroundTexture.setSmooth(true);
+        backgroundSprite.setScale(1, 1); // Aggrandi l'image de fond pour qu'elle soit cohérente avec la taille de la fenetre
+        backgroundSprite.setTexture(backgroundTexture);
 
+        // Affichage du fond
+        interface.draw(backgroundSprite);
+
+        // Vérification des inputs
+        input.checkInput(p1);
+
+        // Create Map
+        loadMap();
 
         // Vérification de présence
-        bloc.presence(p1);
+        // bloc.presence(p1);
+        world.presenceOnGround(p1);
 
         // Affichage du texte, ou de tout autre chose
         interface.draw(text);
 
         // Affichage de bloc
-        interface.draw(bloc.getShape());
+        // interface.draw(bloc.getShape());
 
         // Affichage de personnages
         // interface.draw(person.getShape()); // Dessine un cercle
@@ -88,61 +104,17 @@ void Interface::setText(std::string str)
     text.setStyle(Text::Bold);
 }
 
-void Interface::checkInputQ()
-{
-    setText("Q");
-    p1.walk.y = Thomas::Dir::Left;
-    p1.move(-1 * CONST_PLAYER_SPEED, 0);
-    p1.setIdle(false);
-}
+void Interface::loadMap() {
+    std::vector<block *> vect = world.getMonde();
+    std::vector<block *> ground = world.getGround();
 
-void Interface::checkInputD()
-{
-    setText("D");
-    p1.walk.y = Thomas::Dir::Right;
-    p1.move(1 * CONST_PLAYER_SPEED, 0);
-    p1.setIdle(false);
-}
-
-void Interface::checkInputSpace()
-{
-    if (jump > 0)
-    {
-        setText("Space");
-        p1.move(0, -4);
-        jump--;
-        p1.setJump(true);
-    } else 
-    {
-        p1.setJump(false);
-    }
-}
-
-void Interface::checkInput()
-{
-    if (!p1.getonBlock() && jump == false)
-    {
-        p1.move(0, CONST_GRAVITY * p1.getGravity());
-        p1.setGravity(p1.getGravity() + 0.1);
-    } else 
-    {
-        if (input.getButton().espace && p1.getonBlock())
-        {
-            jump = 30;
-            p1.setGravity(2);
-        }
-    }
-    checkInputSpace();
-    if (input.getButton().q)
-    {
-        checkInputQ();
-        return;
-    }
-    if (input.getButton().d)
-    {
-        checkInputD();
-        return;
+    for (std::size_t i = 0; i < vect.size(); i++) {
+        interface.draw(vect[i]->getSprite());
     }
 
-    p1.setIdle(true);
+    for (std::size_t i = 0; i < ground.size(); i++) {
+        interface.draw(ground[i]->getSprite());
+    }
+
+    interface.draw(world.getHitbox());
 }

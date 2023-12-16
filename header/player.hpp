@@ -19,10 +19,19 @@ class Player : public Person
         sf::Texture getTextureWalk();
         sf::Sprite getSpriteIdle();
         sf::Texture getTextureIdle();
+        int getJumpLength();
+        int getNumBlock();
+
+        // Permet de modifier les attributs du perso
+        void setJumpLength(int jump_length);
+
+        // Permet de modifier si le perso est au sol
+        void setNumBlock(int numBlock);
 
     protected:
         // Hitbox
         sf::RectangleShape hitbox;
+        sf::RectangleShape arm;
 
         // Le perso en mouvement
         sf::Sprite spriteWalk;
@@ -40,7 +49,15 @@ class Player : public Person
         sf::Sprite spriteRun;
         sf::Texture textureRun;
 
+        // Le perso en attaque 1
+        sf::Sprite spriteAttack_1;
+        sf::Texture textureAttack_1;
+
         // Vie, argent
         float hp;
         int billet;
+        int jump_length;
+
+        // Variable de présence
+        int numBlock;
 };

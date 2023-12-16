@@ -2,8 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "../header/input.hpp"
-#include "../header/thomas.hpp"
+#include "../header/ninja.hpp"
 #include "../header/block.hpp"
+#include "../header/map.hpp"
 #include <vector>
 
 using namespace sf;
@@ -17,10 +18,15 @@ class Interface
         Text text;
         Input input;
 
-        Thomas p1;
+        Ninja p1;
         block bloc;
 
-        int jump;
+        // Ajout de la texture et du sprite pour le fond d'écran
+        Texture backgroundTexture;
+        Sprite backgroundSprite;
+
+        // Ajout de la map
+        Map world;
 
     public:
         // Constructeur et destructeur de la fenêtre
@@ -35,13 +41,10 @@ class Interface
         // Boucle principale
         void Launch();
 
+        //Background
+        void loadMap();
+
         // Police de caractère
         void LoadFont();
         void setText(std::string str);
-
-        // Vérification des inputs
-        void checkInput();
-        void checkInputQ();
-        void checkInputD();
-        void checkInputSpace();
 };

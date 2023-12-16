@@ -1,12 +1,15 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "../header/thomas.hpp"
+#include "../header/ninja.hpp"
+
+using namespace sf;
 
 class block
 {
     public :
         block();
+        block(float x, float y, float width, float height, std::string path);
         ~block();
 
         void setXpos(float x);
@@ -19,9 +22,12 @@ class block
         float getWidth();
         float getHeight();
 
+        sf::Texture getTexture();
+        sf::Sprite getSprite();
+
         sf::RectangleShape getShape();
 
-        void presence(Thomas &thomas);
+        void presence(Ninja &ninja);
     private :
         float pos_x;
         float pos_y;
@@ -30,4 +36,8 @@ class block
         float height;
 
         sf::RectangleShape blockShape;
+
+        // Ajout de la texture et du sprite pour les objets de map
+        Texture blockTexture;
+        Sprite blockSprite;
 };

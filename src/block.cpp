@@ -14,6 +14,21 @@ block::block()
     blockShape.setPosition(pos_x, pos_y);
 }
 
+block::block(float x, float y, float width, float height, std::string path) {
+    pos_x = x;
+    pos_y = y;
+    this->width = width;
+    this->height = height;
+    if(!blockTexture.loadFromFile(path))
+    {
+        std::cout << "Error loading block texture" << std::endl;
+    }
+    blockTexture.setSmooth(true);
+    blockSprite.setTexture(blockTexture);
+    blockSprite.setScale(width, height);
+    blockSprite.setPosition(pos_x, pos_y);
+}
+
 block::~block()
 {
 }
@@ -63,27 +78,38 @@ sf::RectangleShape block::getShape()
     return blockShape;
 }
 
-
-void block::presence(Thomas &thomas)
+sf::Texture block::getTexture()
 {
-    sf::Vector2f p_pos = thomas.getHitbox().getPosition();
+    return blockTexture;
+}
+
+sf::Sprite block::getSprite()
+{
+    return blockSprite;
+}
+
+
+void block::presence(Ninja &ninja)
+{
+    sf::Vector2f p_pos = ninja.getHitbox().getPosition();
     if ((p_pos.y + CONST_HITBOX_HEIGHT) >= (pos_y + 10))
     {
         if (((p_pos.x >= pos_x) && (p_pos.x <= (pos_x + width))) || ((p_pos.x + CONST_HITBOX_WIDTH >= pos_x) && (p_pos.x + CONST_HITBOX_WIDTH <= (pos_x + width))))
         {
-            thomas.setonBlock(true);
+            ninja.setonBlock(true);
             std::cout << "on block" << std::endl;
-            thomas.setJumpCount(1);
+            ninja.setJumpCount(1);
+            ninja.setGravity(0);
         }
         else
         {
-            thomas.setonBlock(false);
+            ninja.setonBlock(false);
             std::cout << "not on block" << std::endl;
         }
     }
     else
     {
-        thomas.setonBlock(false);
+        ninja.setonBlock(false);
         // std::cout << thomas.getHitbox().getPosition().y << std::endl;
         // std::cout << pos_y << std::endl;
         std::cout << "not on block" << std::endl;
