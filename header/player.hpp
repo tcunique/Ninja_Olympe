@@ -21,12 +21,16 @@ class Player : public Person
         sf::Texture getTextureIdle();
         int getJumpLength();
         int getNumBlock();
+        sf::View getView();
 
         // Permet de modifier les attributs du perso
         void setJumpLength(int jump_length);
 
         // Permet de modifier si le perso est au sol
         void setNumBlock(int numBlock);
+
+        // View of the player
+        sf::View view;
 
     protected:
         // Hitbox

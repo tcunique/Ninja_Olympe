@@ -7,6 +7,10 @@ const int CONST_WIDTH = 1600;
 const int CONST_HEIGHT = 1000;
 const std::string CONST_TITLE = "Name Game";
 
+// Dimension de view
+const int CONST_VIEW_WIDTH = 1000;
+const int CONST_VIEW_HEIGHT = 700;
+
 // Information sur le joueur
 const int CONST_PLAYER_SPEED = 4;
 const int CONST_PLAYER_RUN = 2;

@@ -7,6 +7,10 @@ Player::Player()
     billet = CONST_START_PIECE;
     jump_length = 0;
     numBlock = 0;
+
+    view.setSize(CONST_VIEW_WIDTH, CONST_VIEW_HEIGHT);
+    view.setCenter(x, y-100);
+    view.zoom(2.0f);
 }
 
 Player::~Player()
@@ -21,6 +25,7 @@ void Player::move(float movex, float movey)
     spriteRun.move(movex, movey);
     spriteAttack_1.move(movex, movey);
     hitbox.move(movex, movey);
+    view.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
 }
@@ -28,6 +33,11 @@ void Player::move(float movex, float movey)
 sf::Sprite Player::getSpriteWalk()
 {
     return spriteWalk;
+}
+
+sf::View Player::getView()
+{
+    return view;
 }
 
 sf::Texture Player::getTextureWalk()

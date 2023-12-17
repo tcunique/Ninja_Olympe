@@ -21,6 +21,7 @@ void Interface::clear()
 
 void Interface::display()
 {
+    interface.setView(p1.getView());
     interface.display();
 }
 
@@ -69,7 +70,7 @@ void Interface::Launch()
         world.presenceOnGround(p1);
 
         // Affichage du texte, ou de tout autre chose
-        interface.draw(text);
+        // interface.draw(text);
 
         // Affichage de bloc
         // interface.draw(bloc.getShape());
@@ -116,5 +117,5 @@ void Interface::loadMap() {
         interface.draw(ground[i]->getSprite());
     }
 
-    interface.draw(world.getHitbox());
+    // interface.draw(world.getHitbox());
 }
