@@ -30,7 +30,6 @@ void Interface::clear()
 
 void Interface::display()
 {
-    interface.setView(p1.getView());
     interface.display();
 }
 
@@ -83,6 +82,11 @@ void Interface::Launch()
 
         // Affichage du hitbox
         // interface.draw(p1.getHitbox());
+        interface.draw(p1.getArmHitBox());
+
+        // Affichage de la barre de vie
+        interface.setView(p1.getView());
+        interface.draw(p1.getSpriteHealthBar());
 
         // Affichage de la fenêtre
         display();

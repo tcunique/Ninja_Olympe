@@ -11,6 +11,9 @@ Player::Player()
     view.setSize(CONST_VIEW_WIDTH, CONST_VIEW_HEIGHT);
     view.setCenter(x, y-100);
     view.zoom(2.0f);
+
+    // Gère les animations
+    SpriteHealthBarL();
 }
 
 Player::~Player()
@@ -25,14 +28,25 @@ void Player::move(float movex, float movey)
     spriteRun.move(movex, movey);
     spriteAttack_1.move(movex, movey);
     hitbox.move(movex, movey);
+    arm.move(movex, movey);
     view.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
 }
 
+sf::Sprite Player::getSpriteHealthBar()
+{
+    return healthBar;
+}
+
 sf::Sprite Player::getSpriteWalk()
 {
     return spriteWalk;
+}
+
+sf::RectangleShape Player::getArmHitBox()
+{
+    return arm;
 }
 
 sf::View Player::getView()
@@ -65,6 +79,21 @@ int Player::getNumBlock()
     return numBlock;
 }
 
+sf::Vector2f Player::getArmHitBoxSize()
+{
+    return arm.getSize();
+}
+
+float Player::getArmHitBoxPosX()
+{
+    return arm.getPosition().x;
+}
+
+float Player::getArmHitBoxPosY()
+{
+    return arm.getPosition().y;
+}
+
 void Player::setJumpLength(int jump_length)
 {
     this->jump_length = jump_length;
@@ -73,4 +102,30 @@ void Player::setJumpLength(int jump_length)
 void Player::setNumBlock(int numBlock)
 {
     this->numBlock += numBlock;
+}
+
+void Player::setArmHitboxLength(sf::Vector2f size)
+{
+    arm.setSize(size);
+}
+
+void Player::setArmHitboxPosX(float x)
+{
+    arm.setPosition(x, arm.getPosition().y);
+}
+
+void Player::setArmHitboxPosY(float y)
+{
+    arm.setPosition(arm.getPosition().x, y);
+}
+
+void Player::SpriteHealthBarL()
+{
+    if (!textureHealthBar.loadFromFile("sprite/healthbar.png"))
+    {
+        std::cout << "Erreur lors du chargement de la texture healthBar.png" << std::endl;
+    }
+    textureHealthBar.setSmooth(true);
+    healthBar.setScale(3, 3);
+    healthBar.setTexture(textureHealthBar);
 }

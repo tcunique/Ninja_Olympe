@@ -108,12 +108,17 @@ void Input::checkInputJ(Ninja::Dir dir, Ninja &p1)
     }
 }
 
-void Input::checkInputK(Ninja::Dir dir, Ninja &p1)
+void Input::checkInputK(unsigned int dir, Ninja &p1)
 {
+    p1.setAttack_1(true);
+    sf::Vector2f size = p1.getArmHitBoxSize();
     if (dir == Ninja::Dir::Right)
     {
+        p1.setArmHitboxLength(sf::Vector2f(size.x + 53, size.y));
     } else 
     {
+        p1.setArmHitboxLength(sf::Vector2f(size.x + 40, size.y));
+        p1.setArmHitboxPosX(p1.getArmHitBoxPosX() - 40);
     }
 }
 
@@ -147,7 +152,7 @@ void Input::checkInput(Ninja &p1)
     checkInputSpace(p1);
     if (button.k && !p1.getAttack_1())
     {
-        p1.setAttack_1(true);
+        checkInputK(p1.walk.y, p1);
     }
     if (button.q)
     {

@@ -30,7 +30,7 @@ class Input
         void checkInputD(int speed, Ninja &p1);
         void checkInputSpace(Ninja &p1);
         void checkInputJ(Ninja::Dir dir, Ninja &p1);
-        void checkInputK(Ninja::Dir dir, Ninja &p1);
+        void checkInputK(unsigned int dir, Ninja &p1);
         
     private:
         Button button;

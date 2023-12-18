@@ -36,7 +36,11 @@ Ninja::Ninja()
     hitbox.setOutlineColor(sf::Color::Red);
 
     // hitbox arm
-    arm.setPosition(CONST_POSITION_X, CONST_POSITION_Y);
+    arm.setPosition(CONST_POSITION_X+15, CONST_POSITION_Y+45);
+    arm.setSize(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
+    arm.setFillColor(sf::Color::Transparent);
+    arm.setOutlineThickness(1);
+    arm.setOutlineColor(sf::Color::Red);
 }
 
 Ninja::~Ninja()
@@ -263,16 +267,20 @@ sf::Sprite Ninja::animationAttack_1()
     {
         attack_1_count = 1;
         attack_1_state = false;
-    }
-    if (walk.y == Dir::Right)
-    {
-        spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, 128, 128));
+        setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
+        setArmHitboxPosX(x + 15);
     } else 
     {
-        spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, -128, 128));
+        if (walk.y == Dir::Right)
+        {
+            spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, 128, 128));
+        } else 
+        {
+            spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, -128, 128));
+        }
+        attack_1_count++;
+        fpsCount = 0;
     }
-    attack_1_count++;
-    fpsCount = 0;
     return spriteAttack_1;
 }
 

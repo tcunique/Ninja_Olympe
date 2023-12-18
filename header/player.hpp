@@ -22,12 +22,26 @@ class Player : public Person
         int getJumpLength();
         int getNumBlock();
         sf::View getView();
+        sf::RectangleShape getArmHitBox();
+        sf::Vector2f getArmHitBoxSize();
+        float getArmHitBoxPosX();
+        float getArmHitBoxPosY();
+        sf::Sprite getSpriteHealthBar();
+
+
 
         // Permet de modifier les attributs du perso
         void setJumpLength(int jump_length);
+        void setArmHitboxLength(sf::Vector2f size);
+        void setArmHitboxPosX(float x);
+        void setArmHitboxPosY(float y);
 
         // Permet de modifier si le perso est au sol
         void setNumBlock(int numBlock);
+
+
+        void SpriteHealthBarL();
+        // void animeHealthBar();
 
         // View of the player
         sf::View view;
@@ -56,6 +70,10 @@ class Player : public Person
         // Le perso en attaque 1
         sf::Sprite spriteAttack_1;
         sf::Texture textureAttack_1;
+
+        // Heatlh bar
+        sf::Sprite healthBar;
+        sf::Texture textureHealthBar;
 
         // Vie, argent
         float hp;

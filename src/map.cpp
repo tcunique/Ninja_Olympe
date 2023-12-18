@@ -100,6 +100,10 @@ void Map::presenceOnGround(Ninja &ninja)
         // std::cout << "y true" << std::endl;
         if (((p_pos.x >= hitboxPosX) && (p_pos.x <= (hitboxPosX + hitboxWidth))) || ((p_pos.x + CONST_HITBOX_WIDTH >= hitboxPosX) && (p_pos.x + CONST_HITBOX_WIDTH <= (hitboxPosX + hitboxWidth))))
         {
+            if (ninja.getJump() == false)
+            {
+                ninja.move(0, hitboxPosY - (p_pos.y + CONST_HITBOX_HEIGHT));
+            }
             ninja.setonBlock(true);
             // std::cout << "on block" << std::endl;
             ninja.setJumpCount(1);
