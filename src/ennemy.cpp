@@ -44,3 +44,4 @@ void Ennemy::setTextureIdle(sf::Texture textureIdle)
 {
     this->textureIdle = textureIdle;
 }
+

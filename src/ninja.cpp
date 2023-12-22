@@ -41,6 +41,13 @@ Ninja::Ninja()
     arm.setFillColor(sf::Color::Transparent);
     arm.setOutlineThickness(1);
     arm.setOutlineColor(sf::Color::Red);
+
+    // hitbox body
+    hitboxBody.setPosition(CONST_POSITION_X+5, CONST_POSITION_Y+10);
+    hitboxBody.setSize(sf::Vector2f(40, 150));
+    hitboxBody.setFillColor(sf::Color::Transparent);
+    hitboxBody.setOutlineThickness(1);
+    hitboxBody.setOutlineColor(sf::Color::Red);
 }
 
 Ninja::~Ninja()

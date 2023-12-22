@@ -26,9 +26,15 @@ void Player::move(float movex, float movey)
     spriteAttack_1.move(movex, movey);
     hitbox.move(movex, movey);
     arm.move(movex, movey);
+    hitboxBody.move(movex, movey);
     view.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
+}
+
+sf::RectangleShape Player::getHitBoxBody()
+{
+    return hitboxBody;
 }
 
 sf::Sprite Player::getSpriteWalk()

@@ -23,6 +23,7 @@ class Player : public Person
         int getNumBlock();
         sf::View getView();
         sf::RectangleShape getArmHitBox();
+        sf::RectangleShape getHitBoxBody();
         sf::Vector2f getArmHitBoxSize();
         float getArmHitBoxPosX();
         float getArmHitBoxPosY();
@@ -45,6 +46,7 @@ class Player : public Person
         // Hitbox
         sf::RectangleShape hitbox;
         sf::RectangleShape arm;
+        sf::RectangleShape hitboxBody;
 
         // Le perso en mouvement
         sf::Sprite spriteWalk;

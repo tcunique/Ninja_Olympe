@@ -1,5 +1,6 @@
 #pragma once
 #include "ennemy.hpp"
+#include "ninja.hpp"
 #include "data.hpp"
 
 class samurai : public Ennemy
@@ -19,6 +20,7 @@ class samurai : public Ennemy
 
         // Load the sprite
         void SpriteIdleLoad();
+        void SpriteWalkLoad();
 
         // Animation
         sf::Sprite animation();
@@ -27,6 +29,9 @@ class samurai : public Ennemy
 
         // Move bot
         void botMove();
+        void followPlayer(Ninja &ninja);
+        void mainMove(Ninja &ninja);
+
 
         enum Dir {LEFT, RIGHT};
     private :
