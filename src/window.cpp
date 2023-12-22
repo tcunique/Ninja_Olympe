@@ -44,7 +44,6 @@ void Interface::Launch()
     LoadFont();
     setText("Hello World");
 
-    
     while (interface.isOpen())
     {
         // Boucle d'évènements
@@ -73,23 +72,28 @@ void Interface::Launch()
         // interface.draw(bloc.getShape());
 
         // Affichage de personnages
-        // interface.draw(person.getShape()); // Dessine un cercle
         sf::Sprite anim = p1.animation();
         interface.draw(anim); // Dessine un sprite
 
-                // Create Map
+        // Affichage de l'ennemi
+        sf::Sprite animEnnemy = ennemy.animation();
+        interface.draw(animEnnemy);
+
+        // Create Map
         loadMap();
 
         // Affichage du hitbox
         // interface.draw(p1.getHitbox());
         interface.draw(p1.getArmHitBox());
 
-        // Affichage de la barre de vie
         interface.setView(p1.getView());
-        interface.draw(p1.getSpriteHealthBar());
+
+        // Affichage de la barre de vie
+        displayHealthBar();
 
         // Affichage de la fenêtre
         display();
+        // interface.setView(interface.getDefaultView());
     }
 }
 
@@ -123,4 +127,25 @@ void Interface::loadMap() {
     }
 
     // interface.draw(world.getHitbox());
+}
+
+void Interface::displayHealthBar()
+{
+    // Affichage de la barre de vie
+    sf::Vector2f playerPosition = p1.getPos();
+    sf::Vector2f healthBarPosition = playerPosition + sf::Vector2f(-CONST_WIDTH/2, -CONST_HEIGHT/2);
+
+    // Mettre la position de la barre de vie à la position du joueur
+    healthbar.setHealthBarPos(healthBarPosition);
+
+    // Création de la barre de vie
+    sf::RectangleShape health(sf::Vector2f(175, 21));
+    health.setFillColor(sf::Color::Red);
+    health.setPosition(healthBarPosition + sf::Vector2f(50, 47));
+
+    // Affichage de la barre de vie
+    interface.draw(health);
+    interface.draw(healthbar.getSpriteHealthBar());
+    
+
 }

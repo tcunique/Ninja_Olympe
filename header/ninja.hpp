@@ -62,12 +62,6 @@ class Ninja : public Player
         // Attack animation
         unsigned int attack_1_count;
 
-        // Speed of animation
-        sf::Clock clock;
-        float fpsCount;
-        float switchFps;
-        float fpsSpeed;
-
         // state
         bool idle;
         bool jump;

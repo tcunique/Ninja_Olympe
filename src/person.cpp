@@ -10,6 +10,11 @@ Person::Person()
     gravity = 0;
 }
 
+sf::Vector2f Person::getPos()
+{
+    return sf::Vector2f(x, y);
+}
+
 float Person::getGravity()
 {
     return gravity;

@@ -39,8 +39,6 @@ class Player : public Person
         // Permet de modifier si le perso est au sol
         void setNumBlock(int numBlock);
 
-
-        void SpriteHealthBarL();
         // void animeHealthBar();
 
         // View of the player
@@ -70,10 +68,6 @@ class Player : public Person
         // Le perso en attaque 1
         sf::Sprite spriteAttack_1;
         sf::Texture textureAttack_1;
-
-        // Heatlh bar
-        sf::Sprite healthBar;
-        sf::Texture textureHealthBar;
 
         // Vie, argent
         float hp;

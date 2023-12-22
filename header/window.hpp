@@ -5,6 +5,8 @@
 #include "../header/ninja.hpp"
 #include "../header/block.hpp"
 #include "../header/map.hpp"
+#include "../header/healthbar.hpp"
+#include "../header/samurai.hpp"
 #include <vector>
 
 using namespace sf;
@@ -18,8 +20,12 @@ class Interface
         Text text;
         Input input;
 
+        // Ajout du personnage
         Ninja p1;
         block bloc;
+
+        // Ajout de l'ennemi
+        samurai ennemy;
 
         // Ajout de la texture et du sprite pour le fond d'écran
         Texture backgroundTexture;
@@ -27,6 +33,9 @@ class Interface
 
         // Ajout de la map
         Map world;
+
+        // Ajout de la barre de vie
+        healthBar healthbar;
 
     public:
         // Constructeur et destructeur de la fenêtre
@@ -43,6 +52,9 @@ class Interface
 
         //Background
         void loadMap();
+
+        // Affichage de la barre de vie
+        void displayHealthBar();
 
         // Police de caractère
         void LoadFont();

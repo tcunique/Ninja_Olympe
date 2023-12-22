@@ -9,11 +9,8 @@ Player::Player()
     numBlock = 0;
 
     view.setSize(CONST_VIEW_WIDTH, CONST_VIEW_HEIGHT);
-    view.setCenter(x, y-100);
+    view.setCenter(x, y);
     view.zoom(2.0f);
-
-    // Gère les animations
-    SpriteHealthBarL();
 }
 
 Player::~Player()
@@ -32,11 +29,6 @@ void Player::move(float movex, float movey)
     view.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
-}
-
-sf::Sprite Player::getSpriteHealthBar()
-{
-    return healthBar;
 }
 
 sf::Sprite Player::getSpriteWalk()
@@ -119,13 +111,3 @@ void Player::setArmHitboxPosY(float y)
     arm.setPosition(arm.getPosition().x, y);
 }
 
-void Player::SpriteHealthBarL()
-{
-    if (!textureHealthBar.loadFromFile("sprite/healthbar.png"))
-    {
-        std::cout << "Erreur lors du chargement de la texture healthBar.png" << std::endl;
-    }
-    textureHealthBar.setSmooth(true);
-    healthBar.setScale(3, 3);
-    healthBar.setTexture(textureHealthBar);
-}

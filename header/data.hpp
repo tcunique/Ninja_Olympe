@@ -15,12 +15,24 @@ const int CONST_VIEW_HEIGHT = 700;
 const int CONST_PLAYER_SPEED = 4;
 const int CONST_PLAYER_RUN = 2;
 const float CONST_PLAYER_SIZE = 2.0;
+const float CONST_PLAYER_HEALTH = 100;
 const int CONST_PLAYER_JUMP = 4;
 const int CONST_POSITION_X = 100;
 const int CONST_POSITION_Y = 100;
 const std::string CONST_PLAYER_NAME = "Ninja";
 const float CONST_HP = 100;
 const int CONST_START_PIECE = 0;
+
+// Information sur l'ennemi
+const int CONST_ENNEMY_SPEED = 4;
+const int CONST_ENNEMY_RUN = 2;
+const float CONST_ENNEMY_SIZE = 2.0;
+const float CONST_ENNEMY_HEALTH = 100;
+const int CONST_ENNEMY_JUMP = 4;
+const int CONST_ENNEMY_POSITION_X = 900;
+const int CONST_ENNEMY_POSITION_Y = 100;
+const std::string CONST_ENNEMY_NAME = "Ennemy";
+const float CONST_ENNEMY_HP = 100;
 
 // Hitbox Arm
 const int CONST_PLAYER_ARM_WIDTH = 20;

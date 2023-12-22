@@ -23,6 +23,7 @@ class Person
         float getSpeed();
         float getGravity();
         bool getonBlock();
+        sf::Vector2f getPos();
 
         // Permet de déplacer le perso
         virtual void move(float movex, float movey) = 0;
@@ -35,4 +36,10 @@ class Person
 
         // gravity speed
         float gravity;
+
+        // Speed of animation
+        sf::Clock clock;
+        float fpsCount;
+        float switchFps;
+        float fpsSpeed;
 };
