@@ -1,3 +1,4 @@
+#pragma once
 #include "person.hpp"
 #include "data.hpp"
 
@@ -28,4 +29,7 @@ class Ennemy : public Person
         
         // hp 
         int hp;
+
+        // hitbox 
+        sf::RectangleShape hitbox;
 };

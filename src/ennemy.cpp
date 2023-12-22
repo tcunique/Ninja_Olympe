@@ -19,6 +19,8 @@ Ennemy::~Ennemy()
 void Ennemy::move(float movex, float movey)
 {
     spriteIdle.move(movex, movey);
+    spriteWalk.move(movex, movey);
+    hitbox.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
 }

@@ -60,10 +60,14 @@ void Interface::Launch()
         // Vérification des inputs
         input.checkInput(p1);
 
+        // botMove
+        ennemy.botMove();
+
 
         // Vérification de présence
         // bloc.presence(p1);
         world.presenceOnGround(p1);
+        world.presenceOnGroundBot(ennemy);
 
         // Affichage du texte, ou de tout autre chose
         // interface.draw(text);
@@ -84,6 +88,7 @@ void Interface::Launch()
 
         // Affichage du hitbox
         // interface.draw(p1.getHitbox());
+        interface.draw(ennemy.getHitBox());
         interface.draw(p1.getArmHitBox());
 
         interface.setView(p1.getView());

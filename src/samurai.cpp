@@ -16,10 +16,22 @@ samurai::samurai()
     fpsCount = 0;
     switchFps = 4;
     fpsSpeed = 100;
+
+    // hitbox
+    hitbox.setPosition(x + 100, y + 200);
+    hitbox.setSize(sf::Vector2f(CONST_HITBOX_WIDTH, CONST_HITBOX_HEIGHT));
+    hitbox.setFillColor(sf::Color::Transparent);
+    hitbox.setOutlineThickness(1);
+    hitbox.setOutlineColor(sf::Color::Red);
 }
 
 samurai::~samurai()
 {
+}
+
+sf::RectangleShape samurai::getHitBox()
+{
+    return hitbox;
 }
 
 sf::Sprite samurai::getSpriteIdle()
@@ -117,6 +129,27 @@ sf::Sprite samurai::animation()
         } else 
         {
             return spriteIdle;
+        }
+    }
+}
+
+void samurai::botMove()
+{
+    if (walk == true)
+    {
+        if (walkCount.y == Dir::RIGHT)
+        {
+            move(1, 0);
+        } else 
+        {
+            move(-1, 0);
+        }
+    } else 
+    {
+        if (getonBlock() == false)
+        {
+            move(0, CONST_GRAVITY * getGravity());
+            setGravity(getGravity() + 0.1);
         }
     }
 }

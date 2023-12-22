@@ -26,9 +26,6 @@ class Player : public Person
         sf::Vector2f getArmHitBoxSize();
         float getArmHitBoxPosX();
         float getArmHitBoxPosY();
-        sf::Sprite getSpriteHealthBar();
-
-
 
         // Permet de modifier les attributs du perso
         void setJumpLength(int jump_length);

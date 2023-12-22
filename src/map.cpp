@@ -123,3 +123,30 @@ void Map::presenceOnGround(Ninja &ninja)
         // std::cout << "not on block" << std::endl;
     }
 }
+
+void Map::presenceOnGroundBot(samurai &samurai)
+{
+    sf::Vector2f p_pos = samurai.getHitBox().getPosition();
+    // std::cout << "y_p : " << p_pos.y + CONST_HITBOX_HEIGHT << std::endl;
+    // std::cout << "hitboxY : " << hitboxPosY << std::endl;
+    if (((p_pos.y + CONST_HITBOX_HEIGHT) <= (hitboxPosY + 6)) && ((p_pos.y + CONST_HITBOX_HEIGHT) >= (hitboxPosY - 6)))
+    {
+        // std::cout << "y true" << std::endl;
+        if (((p_pos.x >= hitboxPosX) && (p_pos.x <= (hitboxPosX + hitboxWidth))) || ((p_pos.x + CONST_HITBOX_WIDTH >= hitboxPosX) && (p_pos.x + CONST_HITBOX_WIDTH <= (hitboxPosX + hitboxWidth))))
+        {
+            samurai.move(0, hitboxPosY - (p_pos.y + CONST_HITBOX_HEIGHT));
+            samurai.setonBlock(true);
+            // std::cout << "on block" << std::endl;
+            samurai.setGravity(0);
+        }
+        else
+        {
+            samurai.setonBlock(false);
+            // std::cout << "not on block" << std::endl;
+        }
+    }
+    else
+    {
+        samurai.setonBlock(false);
+    }
+}

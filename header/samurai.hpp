@@ -1,3 +1,4 @@
+#pragma once
 #include "ennemy.hpp"
 #include "data.hpp"
 
@@ -10,6 +11,7 @@ class samurai : public Ennemy
         // get
         sf::Sprite getSpriteIdle();
         sf::Texture getTextureIdle();
+        sf::RectangleShape getHitBox();
 
         // set
         void setSpriteIdle(sf::Sprite spriteIdle);
@@ -22,6 +24,9 @@ class samurai : public Ennemy
         sf::Sprite animation();
         sf::Sprite animationIdle();
         sf::Sprite animationWalk();
+
+        // Move bot
+        void botMove();
 
         enum Dir {LEFT, RIGHT};
     private :

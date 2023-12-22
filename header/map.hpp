@@ -3,6 +3,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "block.hpp"
+#include "person.hpp"
+#include "samurai.hpp"
 
 
 using namespace sf;
@@ -37,4 +39,5 @@ class Map
         int getHitboxHeight();
 
         void presenceOnGround(Ninja &ninja);
+        void presenceOnGroundBot(samurai &samurai);
 };
