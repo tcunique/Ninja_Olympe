@@ -13,6 +13,8 @@ class Ennemy : public Person
         // get
         sf::Sprite getSpriteIdle();
         sf::Texture getTextureIdle();
+        sf::RectangleShape getHitBox();
+        sf::RectangleShape getHitBoxBody();
 
         // set
         void setSpriteIdle(sf::Sprite spriteIdle);
@@ -32,4 +34,5 @@ class Ennemy : public Person
 
         // hitbox 
         sf::RectangleShape hitbox;
+        sf::RectangleShape hitboxBody;
 };

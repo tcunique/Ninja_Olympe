@@ -24,6 +24,13 @@ samurai::samurai()
     hitbox.setFillColor(sf::Color::Transparent);
     hitbox.setOutlineThickness(1);
     hitbox.setOutlineColor(sf::Color::Red);
+
+    // hitboxBody
+    hitboxBody.setPosition(x + 110, y + 100);
+    hitboxBody.setSize(sf::Vector2f(CONST_HITBOX_WIDTH, CONST_HITBOX_HEIGHT+ 100));
+    hitboxBody.setFillColor(sf::Color::Transparent);
+    hitboxBody.setOutlineThickness(1);
+    hitboxBody.setOutlineColor(sf::Color::Red);
 }
 
 samurai::~samurai()
@@ -75,6 +82,7 @@ void samurai::SpriteWalkLoad()
     spriteWalk.setTexture(textureWalk);
     spriteWalk.setPosition(x, y);
     spriteWalk.setScale(CONST_ENNEMY_SIZE, CONST_ENNEMY_SIZE);
+    spriteWalk.setTextureRect(sf::IntRect(128, 0, 128, 128));
 }
 
 sf::Sprite samurai::animationIdle()
@@ -126,7 +134,7 @@ sf::Sprite samurai::animation()
     // Permet de fixer un fps et que l'image de ne se charge pas tout le temps
     if (fpsCount >= switchFps)
     {
-        if (walk == true)
+        if (walk == true && onBlock == true)
         {
             return animationWalk();
         } else 
@@ -135,7 +143,7 @@ sf::Sprite samurai::animation()
         }
     } else 
     {
-        if (walk == true)
+        if (walk == true && onBlock == true)
         {
             return spriteWalk;
         } else 
@@ -147,23 +155,9 @@ sf::Sprite samurai::animation()
 
 void samurai::followPlayer(Ninja &ninja)
 {
-    if (ninja.getHitBoxBody().getPosition().x > hitbox.getPosition().x)
+    if (ninja.getX() > getX() + 10)
     {
-        walkCount.y = Dir::RIGHT;
-        walk = true;
-        idle = false;
-    } else 
-    {
-        if (ninja.getHitBoxBody().getPosition().x < hitbox.getPosition().x)
-        {
-            walkCount.y = Dir::LEFT;
-            walk = true;
-            idle = false;
-        } else 
-        {
-            walk = false;
-            idle = true;
-        }
+        
     }
 }
 

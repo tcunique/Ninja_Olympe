@@ -85,6 +85,7 @@ void Interface::Launch()
         // Affichage du hitbox
         interface.draw(p1.getArmHitBox());
         interface.draw(p1.getHitBoxBody());
+        interface.draw(ennemy.getHitBoxBody());
 
         interface.setView(p1.getView());
 

@@ -21,6 +21,7 @@ void Ennemy::move(float movex, float movey)
     spriteIdle.move(movex, movey);
     spriteWalk.move(movex, movey);
     hitbox.move(movex, movey);
+    hitboxBody.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
 }
@@ -45,3 +46,12 @@ void Ennemy::setTextureIdle(sf::Texture textureIdle)
     this->textureIdle = textureIdle;
 }
 
+sf::RectangleShape Ennemy::getHitBox()
+{
+    return hitbox;
+}
+
+sf::RectangleShape Ennemy::getHitBoxBody()
+{
+    return hitboxBody;
+}
