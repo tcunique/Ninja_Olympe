@@ -155,9 +155,23 @@ sf::Sprite samurai::animation()
 
 void samurai::followPlayer(Ninja &ninja)
 {
-    if (ninja.getX() > getX() + 10)
+    if (ninja.getHitBoxBody().getPosition().x > hitboxBody.getPosition().x + hitboxBody.getSize().x + 20)
     {
-        
+        walkCount.y = Dir::RIGHT;
+        walk = true;
+        idle = false;
+    } else 
+    {
+        if (ninja.getHitBoxBody().getPosition().x + ninja.getHitBoxBody().getSize().x < hitboxBody.getPosition().x - 20)
+        {
+            walkCount.y = Dir::LEFT;
+            walk = true;
+            idle = false;
+        } else 
+        {
+            walk = false;
+            idle = true;
+        }
     }
 }
 
