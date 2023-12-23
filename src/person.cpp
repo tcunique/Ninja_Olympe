@@ -8,6 +8,11 @@ Person::Person()
     speed = CONST_PLAYER_SPEED;
     onBlock = false;
     gravity = 0;
+
+    // Animation speed
+    fpsCount = 0;
+    switchFps = 4;
+    fpsSpeed = 100;
 }
 
 sf::Vector2f Person::getPos()

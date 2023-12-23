@@ -14,9 +14,6 @@ Ninja::Ninja()
 
     // Gère les fps
     name = CONST_PLAYER_NAME;
-    fpsCount = 0;
-    switchFps = 4;
-    fpsSpeed = 100;
 
     // Gère les inputs
     idle = true;

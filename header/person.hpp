@@ -25,6 +25,9 @@ class Person
         bool getonBlock();
         sf::Vector2f getPos();
 
+        // Direction of the perso
+        enum Dir {Left, Right};
+
         // Permet de déplacer le perso
         virtual void move(float movex, float movey) = 0;
 
