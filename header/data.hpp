@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <SFML/Graphics.hpp>
 
 
 // DImension de la fenêtre
@@ -23,18 +24,7 @@ const std::string CONST_PLAYER_NAME = "Ninja";
 const float CONST_HP = 100;
 const int CONST_START_PIECE = 0;
 
-// Information sur l'ennemi
-const int CONST_ENNEMY_SPEED = 2;
-const int CONST_ENNEMY_RUN = 4;
-const float CONST_ENNEMY_SIZE = 2.0;
-const float CONST_ENNEMY_HEALTH = 100;
-const int CONST_ENNEMY_JUMP = 4;
-const int CONST_ENNEMY_POSITION_X = 900;
-const int CONST_ENNEMY_POSITION_Y = 100;
-const std::string CONST_ENNEMY_NAME = "Ennemy";
-const float CONST_ENNEMY_HP = 100;
-
-// Hitbox Arm
+// Hitbox Arm Player
 const int CONST_PLAYER_ARM_WIDTH = 20;
 const int CONST_PLAYER_ARM_HEIGHT = 30;
 
@@ -58,3 +48,18 @@ const int CONST_GROUND_WIDTH = 1600;
 const int CONST_GROUND_HEIGHT = 100;
 const int CONST_GROUND_POS_X = 0;
 const int CONST_GROUND_POS_Y = 905;
+
+// Information sur l'ennemi
+const int CONST_ENNEMY_SPEED = 2;
+const int CONST_ENNEMY_RUN = 4;
+const float CONST_ENNEMY_SIZE = 2.0;
+const float CONST_ENNEMY_HEALTH = 100;
+const int CONST_ENNEMY_JUMP = 4;
+const int CONST_ENNEMY_POSITION_X = 900;
+const int CONST_ENNEMY_POSITION_Y = 100;
+const std::string CONST_ENNEMY_NAME = "Ennemy";
+const float CONST_ENNEMY_HP = 100;
+
+// attack interval for ennemy
+const sf::Time CONST_ATTACK_INTERVAL = sf::seconds(2.0f);
+

@@ -86,6 +86,7 @@ void Interface::Launch()
         interface.draw(p1.getArmHitBox());
         interface.draw(p1.getHitBoxBody());
         interface.draw(ennemy.getHitBoxBody());
+        interface.draw(ennemy.getHitBoxArm());
 
         interface.setView(p1.getView());
 

@@ -14,11 +14,14 @@ Ennemy::Ennemy()
     idleCount = 1;
     walkCount.x = 1;
     walkCount.y = Dir::Left;
+    runCount = 1;
+    attackCount1 = 1;
 
     // State of the ennemy
     idle = true;
     walk = false;
     run = false;
+    attack1 = false;
 }
 
 Ennemy::~Ennemy()
@@ -30,8 +33,10 @@ void Ennemy::move(float movex, float movey)
     spriteIdle.move(movex, movey);
     spriteWalk.move(movex, movey);
     spriteRun.move(movex, movey);
+    spriteAttack_1.move(movex, movey);
     hitbox.move(movex, movey);
     hitboxBody.move(movex, movey);
+    hitboxArm.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
 }
@@ -59,6 +64,11 @@ sf::RectangleShape Ennemy::getHitBox()
 sf::RectangleShape Ennemy::getHitBoxBody()
 {
     return hitboxBody;
+}
+
+sf::RectangleShape Ennemy::getHitBoxArm()
+{
+    return hitboxArm;
 }
 
 void Ennemy::setSpriteIdle(sf::Sprite spriteIdle)
@@ -137,6 +147,27 @@ sf::Sprite Ennemy::animationRun()
     return spriteRun;
 }
 
+sf::Sprite Ennemy::animationAttack1()
+{
+    if (attackCount1 * 128 >= textureAttack_1.getSize().x)
+    {
+        attackCount1 = 1;
+        attack1 = false;
+    }
+    if (walkCount.y == Dir::Right)
+    {
+        spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, 128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
+    } else 
+    {
+        spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, -128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+    }
+    fpsCount = 0;
+    attackCount1++;
+    return spriteAttack_1;
+}
+
 sf::Sprite Ennemy::animation()
 {
     if(fpsCount < switchFps)
@@ -147,6 +178,10 @@ sf::Sprite Ennemy::animation()
     // Permet de fixer un fps et que l'image de ne se charge pas tout le temps
     if (fpsCount >= switchFps)
     {
+        if (attack1 == true)
+        {
+            return animationAttack1();
+        }
         if (run == true && onBlock == true)
         {
             return animationRun();
@@ -162,6 +197,10 @@ sf::Sprite Ennemy::animation()
         }
     } else 
     {
+        if (attack1 == true)
+        {
+            return spriteAttack_1;
+        }
         if (run == true && onBlock == true)
         {
             return spriteRun;
@@ -178,22 +217,36 @@ sf::Sprite Ennemy::animation()
     }
 }
 
+bool Ennemy::elpasedTime()
+{
+    if (clockAttack.getElapsedTime() >= CONST_ATTACK_INTERVAL)
+    {
+        clockAttack.restart();
+        return true;
+    }
+    return false;
+}
+
 void Ennemy::followPlayer(Ninja &ninja)
 {
-    if (ninja.getHitBoxBody().getPosition().x > hitboxBody.getPosition().x + hitboxBody.getSize().x + 20)
+    if (ninja.getHitBoxBody().getPosition().x > hitboxBody.getPosition().x + hitboxBody.getSize().x + 30)
     {
         setWalkY(Dir::Right);
         run = true;
         idle = false;
     } else 
     {
-        if (ninja.getHitBoxBody().getPosition().x + ninja.getHitBoxBody().getSize().x < hitboxBody.getPosition().x - 20)
+        if (ninja.getHitBoxBody().getPosition().x + ninja.getHitBoxBody().getSize().x < hitboxBody.getPosition().x - 30)
         {
             setWalkY(Dir::Left);
             run = true;
             idle = false;
         } else 
         {
+            if (elpasedTime())
+            {
+                attack1 = true;
+            }
             run = false;
             idle = true;
         }

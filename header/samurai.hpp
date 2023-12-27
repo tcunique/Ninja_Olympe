@@ -11,11 +11,13 @@ class samurai : public Ennemy
         // Set
         void setHitbox();
         void setHitboxBody();
+        void setHitBoxArm();
 
         // Load the sprite
         void SpriteIdleLoad();
         void SpriteWalkLoad();
         void SpriteRunLoad();
+        void SpriteAttack1Load();
     private :
         // hp 
         int hp;

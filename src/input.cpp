@@ -85,14 +85,14 @@ Input::Button Input::getButton()
 
 void Input::checkInputQ(int speed, Ninja &p1)
 {
-    p1.walk.y = Ninja::Dir::Left;
+    p1.setDirection(Ninja::Dir::Left);
     p1.move(-1 * CONST_PLAYER_SPEED * speed, 0);
     p1.setIdle(false);
 }
 
 void Input::checkInputD(int speed, Ninja &p1)
 {
-    p1.walk.y = Ninja::Dir::Right;
+    p1.setDirection(Ninja::Dir::Right);
     p1.move(1 * CONST_PLAYER_SPEED * speed, 0);
     p1.setIdle(false);
 }
@@ -152,7 +152,7 @@ void Input::checkInput(Ninja &p1)
     checkInputSpace(p1);
     if (button.k && !p1.getAttack_1())
     {
-        checkInputK(p1.walk.y, p1);
+        checkInputK(p1.getWalkCount().y, p1);
     }
     if (button.q)
     {

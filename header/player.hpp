@@ -20,8 +20,8 @@ class Player : public Person
         sf::Sprite getSpriteIdle();
         sf::Texture getTextureIdle();
         int getJumpLength();
-        int getNumBlock();
         sf::View getView();
+        sf::RectangleShape getHitbox();
         sf::RectangleShape getArmHitBox();
         sf::RectangleShape getHitBoxBody();
         sf::Vector2f getArmHitBoxSize();
@@ -33,11 +33,30 @@ class Player : public Person
         void setArmHitboxLength(sf::Vector2f size);
         void setArmHitboxPosX(float x);
         void setArmHitboxPosY(float y);
+        void setDirection(Dir direction);
 
-        // Permet de modifier si le perso est au sol
-        void setNumBlock(int numBlock);
 
-        // void animeHealthBar();
+        bool getIdle();
+        unsigned int getJumpCount();
+        bool getJump();
+        bool getRun();
+        bool getAttack_1();
+        sf::Vector2<unsigned int> getWalkCount();
+
+        //Setter
+        void setIdle(bool resp);
+        void setJump(bool resp);
+        void setJumpCount(unsigned int count);
+        void setRun(bool resp);
+        void setAttack_1(bool resp);
+
+        // Animation
+        sf::Sprite animation();
+        sf::Sprite animationWalk();
+        sf::Sprite animationJump();
+        sf::Sprite animationIdle();
+        sf::Sprite animationRun();
+        sf::Sprite animationAttack_1();
 
         // View of the player
         sf::View view;
@@ -68,11 +87,19 @@ class Player : public Person
         sf::Sprite spriteAttack_1;
         sf::Texture textureAttack_1;
 
-        // Vie, argent
-        float hp;
-        int billet;
         int jump_length;
 
-        // Variable de présence
-        int numBlock;
+        // Animation frame
+        unsigned int idle_count;
+        unsigned int jump_count;
+        unsigned int run_count;
+        unsigned int attack_1_count;
+        sf::Vector2<unsigned int> walk_count;
+
+        // state
+        bool idle;
+        bool jump;
+        bool walk_state;
+        bool run_state;
+        bool attack_1_state;
 };

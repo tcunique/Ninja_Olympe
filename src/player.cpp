@@ -3,10 +3,21 @@
 
 Player::Player()
 {
-    hp = CONST_HP;
-    billet = CONST_START_PIECE;
+    // Gère les états
+    idle = true;
+    jump = false;
+    walk_state = false;
+    run_state = false;
+    attack_1_state = false;
     jump_length = 0;
-    numBlock = 0;
+
+    // Gère les animations
+    idle_count = 1;
+    walk_count.x = 1;
+    walk_count.y = Dir::Right;
+    jump_count = 1;
+    run_count = 1;
+    attack_1_count = 1;
 
     view.setSize(CONST_VIEW_WIDTH, CONST_VIEW_HEIGHT);
     view.setCenter(x, y);
@@ -32,19 +43,9 @@ void Player::move(float movex, float movey)
     setY(getY() + movey);
 }
 
-sf::RectangleShape Player::getHitBoxBody()
-{
-    return hitboxBody;
-}
-
 sf::Sprite Player::getSpriteWalk()
 {
     return spriteWalk;
-}
-
-sf::RectangleShape Player::getArmHitBox()
-{
-    return arm;
 }
 
 sf::View Player::getView()
@@ -72,34 +73,44 @@ int Player::getJumpLength()
     return jump_length;
 }
 
-int Player::getNumBlock()
-{
-    return numBlock;
-}
-
-sf::Vector2f Player::getArmHitBoxSize()
-{
-    return arm.getSize();
-}
-
-float Player::getArmHitBoxPosX()
-{
-    return arm.getPosition().x;
-}
-
-float Player::getArmHitBoxPosY()
-{
-    return arm.getPosition().y;
-}
-
 void Player::setJumpLength(int jump_length)
 {
     this->jump_length = jump_length;
 }
 
-void Player::setNumBlock(int numBlock)
+sf::Vector2<unsigned int> Player::getWalkCount()
 {
-    this->numBlock += numBlock;
+    return walk_count;
+}
+
+bool Player::getIdle()
+{
+    return idle;
+}
+
+unsigned int Player::getJumpCount()
+{
+    return jump_count;
+}
+
+bool Player::getJump()
+{
+    return jump;
+}
+
+bool Player::getRun()
+{
+    return run_state;
+}
+
+bool Player::getAttack_1()
+{
+    return attack_1_state;
+}
+
+sf::RectangleShape Player::getHitbox()
+{
+    return hitbox;
 }
 
 void Player::setArmHitboxLength(sf::Vector2f size)
@@ -117,3 +128,207 @@ void Player::setArmHitboxPosY(float y)
     arm.setPosition(arm.getPosition().x, y);
 }
 
+sf::Vector2f Player::getArmHitBoxSize()
+{
+    return arm.getSize();
+}
+
+float Player::getArmHitBoxPosX()
+{
+    return arm.getPosition().x;
+}
+
+float Player::getArmHitBoxPosY()
+{
+    return arm.getPosition().y;
+}
+
+sf::RectangleShape Player::getArmHitBox()
+{
+    return arm;
+}
+
+sf::RectangleShape Player::getHitBoxBody()
+{
+    return hitboxBody;
+}
+
+void Player::setIdle(bool resp)
+{
+    idle = resp;
+}
+
+void Player::setJump(bool resp)
+{
+    jump = resp;
+}
+
+void Player::setJumpCount(unsigned int count)
+{
+    jump_count = count;
+}
+
+void Player::setRun(bool resp)
+{
+    run_state = resp;
+}
+
+void Player::setAttack_1(bool resp)
+{
+    attack_1_state = resp;
+}
+
+void Player::setDirection(Dir direction)
+{
+    walk_count.y = direction;
+}
+
+sf::Sprite Player::animationJump()
+{
+    if (jump_count * 128 >= textureJump.getSize().x)
+    {
+        jump_count = 9;
+    }
+    if (walk_count.y == Dir::Right)
+    {
+        spriteJump.setTextureRect(sf::IntRect(jump_count * 128, 0, 128, 128));
+    } else 
+    {
+        spriteJump.setTextureRect(sf::IntRect(jump_count * 128, 0, -128, 128));
+    }
+    jump_count++;
+    fpsCount = 0;
+    return spriteJump;
+}
+
+sf::Sprite Player::animationWalk()
+{
+    if (walk_count.x * 128 >= textureWalk.getSize().x)
+    {
+        walk_count.x = 1;
+    }
+
+    if (walk_count.y == Dir::Right)
+    {
+        spriteWalk.setTextureRect(sf::IntRect(walk_count.x * 128, 0, 128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
+    } else 
+    {
+        spriteWalk.setTextureRect(sf::IntRect(walk_count.x * 128, 0, -128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+    }
+    fpsCount = 0;
+    walk_count.x++;
+    return spriteWalk;
+}
+
+sf::Sprite Player::animationIdle()
+{
+//Respiration
+    if (idle_count * 128 >= textureIdle.getSize().x)
+    {
+        idle_count = 1;
+    }
+    if (walk_count.y == Dir::Right)
+    {
+        spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, 128, 128));
+    } else 
+    {
+        spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, -128, 128));
+    }
+    fpsCount = 0;
+    idle_count++;
+    return spriteIdle;
+}
+
+sf::Sprite Player::animationRun()
+{
+    if (run_count * 128 >= textureRun.getSize().x)
+    {
+        run_count = 1;
+    }
+    if (walk_count.y == Dir::Right)
+    {
+        spriteRun.setTextureRect(sf::IntRect(run_count * 128, 0, 128, 128));
+    } else 
+    {
+        spriteRun.setTextureRect(sf::IntRect(run_count * 128, 0, -128, 128));
+    }
+    run_count++;
+    fpsCount = 0;
+    return spriteRun;
+}
+
+sf::Sprite Player::animationAttack_1()
+{
+    if (attack_1_count * 128 >= textureAttack_1.getSize().x)
+    {
+        attack_1_count = 1;
+        attack_1_state = false;
+        setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
+        setArmHitboxPosX(x + 15);
+    } else 
+    {
+        if (walk_count.y == Dir::Right)
+        {
+            spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, 128, 128));
+        } else 
+        {
+            spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, -128, 128));
+        }
+        attack_1_count++;
+        fpsCount = 0;
+    }
+    return spriteAttack_1;
+}
+
+
+sf::Sprite Player::animation()
+{
+    if(fpsCount < switchFps)
+    {
+        fpsCount += 1;
+    } 
+
+    // Permet de fixer un fps et que l'image de ne se charge pas tout le temps
+    if (fpsCount >= switchFps)
+    {
+        if (attack_1_state == true)
+        {
+            return animationAttack_1();
+        }
+        // Vérifie s'il y a un input ou non, si non on fait l'anim de la respiration
+        if (jump == true || (jump == false && onBlock == false))
+        {
+            return animationJump();
+        } else if (idle == false && jump == false && run_state == true)
+        {
+            return animationRun();
+        } else if (idle == false && jump == false && run_state == false)
+        {
+            return animationWalk();
+        } else 
+        {
+            return animationIdle();
+        }
+    } else 
+    {
+        if (attack_1_state == true)
+        {
+            return spriteAttack_1;
+        }
+        if (jump == true || (jump == false && onBlock == false))
+        {
+            return spriteJump;
+        } else if (idle == false && jump == false && run_state == true)
+        {
+            return spriteRun;
+        } else if (idle == false && jump == false && run_state == false)
+        {
+            return spriteWalk;
+        } else 
+        {
+            return spriteIdle;
+        }
+    }
+}

@@ -7,10 +7,12 @@ samurai::samurai()
     SpriteIdleLoad();
     SpriteWalkLoad();
     SpriteRunLoad();
+    SpriteAttack1Load();
 
     // hitbox
     setHitbox();
     setHitboxBody();
+    setHitBoxArm();
 }
 
 void samurai::setHitbox()
@@ -29,6 +31,15 @@ void samurai::setHitboxBody()
     hitboxBody.setFillColor(sf::Color::Transparent);
     hitboxBody.setOutlineThickness(1);
     hitboxBody.setOutlineColor(sf::Color::Red);
+}
+
+void samurai::setHitBoxArm()
+{
+    hitboxArm.setPosition(x + 120, y + 150);
+    hitboxArm.setSize(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
+    hitboxArm.setFillColor(sf::Color::Transparent);
+    hitboxArm.setOutlineThickness(1);
+    hitboxArm.setOutlineColor(sf::Color::Red);
 }
 
 samurai::~samurai()
@@ -68,4 +79,16 @@ void samurai::SpriteRunLoad()
     spriteRun.setPosition(x, y);
     spriteRun.setScale(CONST_ENNEMY_SIZE, CONST_ENNEMY_SIZE);
     spriteRun.setTextureRect(sf::IntRect(128, 0, 128, 128));
+}
+
+void samurai::SpriteAttack1Load()
+{
+    if (!textureAttack_1.loadFromFile("sprite/ennemySprite/SamuraiAttack_1.png"))
+    {
+        std::cout << "Error while loading samurai attack sprite" << std::endl;
+    }
+    spriteAttack_1.setTexture(textureAttack_1);
+    spriteAttack_1.setPosition(x, y);
+    spriteAttack_1.setScale(CONST_ENNEMY_SIZE, CONST_ENNEMY_SIZE);
+    spriteAttack_1.setTextureRect(sf::IntRect(128, 0, 128, 128));
 }
