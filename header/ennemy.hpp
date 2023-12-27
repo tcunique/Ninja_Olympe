@@ -23,6 +23,7 @@ class Ennemy : public Person
         void setSpriteIdle(sf::Sprite spriteIdle);
         void setTextureIdle(sf::Texture textureIdle);
         void setWalkY(Dir walkY);
+        
 
         // Animation
         sf::Sprite animation();
