@@ -24,11 +24,12 @@ class Ninja : public Player
         void spriteJumpL();
         void spriteRunL();
         void spriteAttack_1L();
+        void spriteHurtL();
+        void spriteDeathL();
 
     private :
         std::string name;
 
         // Vie, argent
-        float hp;
         int billet;
 };

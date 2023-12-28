@@ -13,6 +13,9 @@ Ninja::Ninja()
     setHitbox();
     setHitboxBody();
     setHitBoxArm();
+
+    // Gère les stats
+    hp = CONST_PLAYER_HP;
 }
 
 Ninja::~Ninja()
@@ -116,6 +119,34 @@ void Ninja::spriteAttack_1L()
     spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, 128, 128)); // Rect la première image
 }
 
+void Ninja::spriteHurtL()
+{
+    // Donne le sprite du perso en respiration
+    if (!textureHurt.loadFromFile("sprite/Hurt.png"))
+    {
+        std::cout << "Erreur lors du chargement de la texture du personnage" << std::endl;
+    }
+    textureHurt.setSmooth(true);
+
+    spriteHurt.setTexture(textureHurt);
+    spriteHurt.setScale(CONST_PLAYER_SIZE, CONST_PLAYER_SIZE); // Aggrandi l'image
+    spriteHurt.setTextureRect(sf::IntRect(hurt_count * 128, 0, 128, 128)); // Rect la première image
+}
+
+void Ninja::spriteDeathL()
+{
+    // Donne le sprite du perso en respiration
+    if (!textureDeath.loadFromFile("sprite/Dead.png"))
+    {
+        std::cout << "Erreur lors du chargement de la texture du personnage" << std::endl;
+    }
+    textureDeath.setSmooth(true);
+
+    spriteDeath.setTexture(textureDeath);
+    spriteDeath.setScale(CONST_PLAYER_SIZE, CONST_PLAYER_SIZE); // Aggrandi l'image
+    spriteDeath.setTextureRect(sf::IntRect(death_count * 128, 0, 128, 128)); // Rect la première image
+}
+
 void Ninja::spriteLaunch()
 {
     spriteIdleL();
@@ -123,6 +154,8 @@ void Ninja::spriteLaunch()
     spriteJumpL();
     spriteRunL();
     spriteAttack_1L();
+    spriteHurtL();
+    spriteDeathL();
 }
 
 std::string Ninja::getName()

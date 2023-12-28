@@ -10,6 +10,8 @@ Player::Player()
     run_state = false;
     attack_1_state = false;
     jump_length = 0;
+    isAlive = true;
+    isHurt = false;
 
     // Gère les animations
     idle_count = 1;
@@ -18,6 +20,8 @@ Player::Player()
     jump_count = 1;
     run_count = 1;
     attack_1_count = 1;
+    hurt_count = 1;
+    death_count = 1;
 
     view.setSize(CONST_VIEW_WIDTH, CONST_VIEW_HEIGHT);
     view.setCenter(x, y);
@@ -30,15 +34,24 @@ Player::~Player()
 
 void Player::move(float movex, float movey)
 {
+    // MOve les sprites
     spriteIdle.move(movex, movey);
     spriteWalk.move(movex, movey);
     spriteJump.move(movex, movey);
     spriteRun.move(movex, movey);
     spriteAttack_1.move(movex, movey);
+    spriteHurt.move(movex, movey);
+    spriteDeath.move(movex, movey);
+
+    // Move les hitbox
     hitbox.move(movex, movey);
     arm.move(movex, movey);
     hitboxBody.move(movex, movey);
+
+    // Move la view
     view.move(movex, movey);
+
+    // Move les coordonnées
     setX(getX() + movex);
     setY(getY() + movey);
 }
@@ -183,6 +196,31 @@ void Player::setDirection(Dir direction)
     walk_count.y = direction;
 }
 
+void Player::setLife(float life)
+{
+    this->hp = life;
+}
+
+void Player::setHurt(bool resp)
+{
+    isHurt = resp;
+}
+
+void Player::setAlive(bool resp)
+{
+    isAlive = resp;
+}
+
+float Player::getLife()
+{
+    return hp;
+}
+
+bool Player::getAlive()
+{
+    return isAlive;
+}
+
 sf::Sprite Player::animationJump()
 {
     if (jump_count * 128 >= textureJump.getSize().x)
@@ -282,6 +320,51 @@ sf::Sprite Player::animationAttack_1()
     return spriteAttack_1;
 }
 
+sf::Sprite Player::animationHurt()
+{
+    if (hurt_count * 128 >= textureHurt.getSize().x)
+    {
+        hurt_count = 1;
+        isHurt = false;
+    } else 
+    {
+        if (walk_count.y == Dir::Right)
+        {
+            spriteHurt.setTextureRect(sf::IntRect(hurt_count * 128, 0, 128, 128));
+        } else 
+        {
+            spriteHurt.setTextureRect(sf::IntRect(hurt_count * 128, 0, -128, 128));
+        }
+        hurt_count++;
+        fpsCount = 0;
+    }
+    return spriteHurt;
+}
+
+sf::Sprite Player::animationDeath()
+{
+    if(fpsCount < switchFps)
+    {
+        fpsCount += 1;
+    } 
+    if (fpsCount >= switchFps)
+    {
+        if (death_count * 128 < textureDeath.getSize().x)
+        {
+            if (walk_count.y == Dir::Right)
+            {
+                spriteDeath.setTextureRect(sf::IntRect(death_count * 128, 0, 128, 128));
+            } else 
+            {
+                spriteDeath.setTextureRect(sf::IntRect(death_count * 128, 0, -128, 128));
+            }
+            death_count++;
+            fpsCount = 0;
+        }
+    }
+    return spriteDeath;
+}
+
 
 sf::Sprite Player::animation()
 {
@@ -293,6 +376,10 @@ sf::Sprite Player::animation()
     // Permet de fixer un fps et que l'image de ne se charge pas tout le temps
     if (fpsCount >= switchFps)
     {
+        if (isHurt)
+        {
+            return animationHurt();
+        }
         if (attack_1_state == true)
         {
             return animationAttack_1();
@@ -313,6 +400,10 @@ sf::Sprite Player::animation()
         }
     } else 
     {
+        if (isHurt)
+        {
+            return spriteHurt;
+        }
         if (attack_1_state == true)
         {
             return spriteAttack_1;
@@ -330,5 +421,17 @@ sf::Sprite Player::animation()
         {
             return spriteIdle;
         }
+    }
+}
+
+bool Player::checkAlive()
+{
+    if (hp <= 0)
+    {
+        isAlive = false;
+        return false;
+    } else 
+    {
+        return true;
     }
 }

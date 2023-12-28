@@ -27,6 +27,7 @@ class Player : public Person
         sf::Vector2f getArmHitBoxSize();
         float getArmHitBoxPosX();
         float getArmHitBoxPosY();
+        bool getAlive();
 
         // Permet de modifier les attributs du perso
         void setJumpLength(int jump_length);
@@ -34,14 +35,16 @@ class Player : public Person
         void setArmHitboxPosX(float x);
         void setArmHitboxPosY(float y);
         void setDirection(Dir direction);
+        void setAlive(bool resp);
 
-
+        // Getter
         bool getIdle();
         unsigned int getJumpCount();
         bool getJump();
         bool getRun();
         bool getAttack_1();
         sf::Vector2<unsigned int> getWalkCount();
+        float getLife();
 
         //Setter
         void setIdle(bool resp);
@@ -49,6 +52,8 @@ class Player : public Person
         void setJumpCount(unsigned int count);
         void setRun(bool resp);
         void setAttack_1(bool resp);
+        void setLife(float life);
+        void setHurt(bool resp);
 
         // Animation
         sf::Sprite animation();
@@ -57,9 +62,13 @@ class Player : public Person
         sf::Sprite animationIdle();
         sf::Sprite animationRun();
         sf::Sprite animationAttack_1();
+        sf::Sprite animationHurt();
+        sf::Sprite animationDeath();
 
         // View of the player
         sf::View view;
+
+        bool checkAlive();
 
     protected:
         // Hitbox
@@ -87,6 +96,14 @@ class Player : public Person
         sf::Sprite spriteAttack_1;
         sf::Texture textureAttack_1;
 
+        // Le perso en hurt
+        sf::Sprite spriteHurt;
+        sf::Texture textureHurt;
+
+        // Le perso en death
+        sf::Sprite spriteDeath;
+        sf::Texture textureDeath;
+
         int jump_length;
 
         // Animation frame
@@ -95,6 +112,8 @@ class Player : public Person
         unsigned int run_count;
         unsigned int attack_1_count;
         sf::Vector2<unsigned int> walk_count;
+        unsigned int hurt_count;
+        unsigned int death_count;
 
         // state
         bool idle;
@@ -102,4 +121,9 @@ class Player : public Person
         bool walk_state;
         bool run_state;
         bool attack_1_state;
+        bool isAlive;
+        bool isHurt;
+
+        // Hp of the player
+        float hp;
 };

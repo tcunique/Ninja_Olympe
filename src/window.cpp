@@ -58,22 +58,24 @@ void Interface::Launch()
         interface.draw(backgroundSprite);
 
         // Vérification des inputs
-        input.checkInput(p1);
-
+        if (p1.checkAlive())
+        {
+            input.checkInput(p1);       
+            // Affichage de personnages
+            sf::Sprite anim = p1.animation();
+            interface.draw(anim); // Dessine un sprite
+        } else 
+        {
+            interface.draw(p1.animationDeath());
+        }
+        
         // botMove
-        ennemy.mainMove(p1);
+        ennemy.mainMove(p1, healthbar);
 
         // Vérification de présence
         // bloc.presence(p1);
         world.presenceOnGround(p1);
         world.presenceOnGroundBot(ennemy);
-
-        // Affichage de bloc
-        // interface.draw(bloc.getShape());
-
-        // Affichage de personnages
-        sf::Sprite anim = p1.animation();
-        interface.draw(anim); // Dessine un sprite
 
         // Affichage de l'ennemi
         sf::Sprite animEnnemy = ennemy.animation();
@@ -83,10 +85,10 @@ void Interface::Launch()
         loadMap();
 
         // Affichage du hitbox
-        interface.draw(p1.getArmHitBox());
-        interface.draw(p1.getHitBoxBody());
-        interface.draw(ennemy.getHitBoxBody());
-        interface.draw(ennemy.getHitBoxArm());
+        // interface.draw(p1.getArmHitBox());
+        // interface.draw(p1.getHitBoxBody());
+        // interface.draw(ennemy.getHitBoxBody());
+        // interface.draw(ennemy.getHitBoxArm());
 
         interface.setView(p1.getView());
 
@@ -135,19 +137,13 @@ void Interface::displayHealthBar()
 {
     // Affichage de la barre de vie
     sf::Vector2f playerPosition = p1.getPos();
-    sf::Vector2f healthBarPosition = playerPosition + sf::Vector2f(-CONST_WIDTH/2, -CONST_HEIGHT/2);
+    sf::Vector2f healthBarPosition = playerPosition + sf::Vector2f(-CONST_WIDTH/1.9, -CONST_HEIGHT/1.9);
 
     // Mettre la position de la barre de vie à la position du joueur
     healthbar.setHealthBarPos(healthBarPosition);
 
-    // Création de la barre de vie
-    sf::RectangleShape health(sf::Vector2f(175, 21));
-    health.setFillColor(sf::Color::Red);
-    health.setPosition(healthBarPosition + sf::Vector2f(50, 47));
-
     // Affichage de la barre de vie
-    interface.draw(health);
+    interface.draw(healthbar.getHealthBarShape());
+    // interface.draw(health);
     interface.draw(healthbar.getSpriteHealthBar());
-    
-
 }

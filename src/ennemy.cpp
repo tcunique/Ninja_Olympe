@@ -22,6 +22,8 @@ Ennemy::Ennemy()
     walk = false;
     run = false;
     attack1 = false;
+    attack = false;
+    alreadyAttack = false;
 }
 
 Ennemy::~Ennemy()
@@ -84,6 +86,21 @@ void Ennemy::setTextureIdle(sf::Texture textureIdle)
 void Ennemy::setWalkY(Dir walkY)
 {
     walkCount.y = walkY;
+}
+
+void Ennemy::setArmHitboxLength(sf::Vector2f size)
+{
+    hitboxArm.setSize(size);
+}
+
+void Ennemy::setArmHitboxPosX(float x)
+{
+    hitboxArm.setPosition(x, hitboxArm.getPosition().y);
+}
+
+void Ennemy::setArmHitboxPosY(float y)
+{
+    hitboxArm.setPosition(hitboxArm.getPosition().x, y);
 }
 
 sf::Sprite Ennemy::animationIdle()
@@ -153,18 +170,27 @@ sf::Sprite Ennemy::animationAttack1()
     {
         attackCount1 = 1;
         attack1 = false;
-    }
-    if (walkCount.y == Dir::Right)
+        alreadyAttack = false;
+        setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
+        setArmHitboxPosX(x + 120);
+    } else
     {
-        spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, 128, 128));
-        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
-    } else 
-    {
-        spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, -128, 128));
-        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+        if (walkCount.y == Dir::Right)
+        {
+            setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH + attackCount1 * 22, CONST_PLAYER_ARM_HEIGHT));
+            spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, 128, 128));
+            spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
+        } else 
+        {
+            setArmHitboxPosX(x + 120 - attackCount1 * 22);
+            setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH + attackCount1 * 22, CONST_PLAYER_ARM_HEIGHT));
+            spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, -128, 128));
+            spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+        }
+        attackCount1++;
     }
     fpsCount = 0;
-    attackCount1++;
+
     return spriteAttack_1;
 }
 
@@ -227,7 +253,7 @@ bool Ennemy::elpasedTime()
     return false;
 }
 
-void Ennemy::followPlayer(Ninja &ninja)
+void Ennemy::followPlayer(Ninja &ninja, healthBar &healthbar)
 {
     if (ninja.getHitBoxBody().getPosition().x > hitboxBody.getPosition().x + hitboxBody.getSize().x + 30)
     {
@@ -304,8 +330,26 @@ void Ennemy::botMove()
     }
 }
 
-void Ennemy::mainMove(Ninja &ninja)
+void Ennemy::mainMove(Ninja &ninja, healthBar &healthbar)
 {
-    followPlayer(ninja);
+    followPlayer(ninja, healthbar);
+
+    // Check if the ennemy touch the player
+    if (attack1 == true && alreadyAttack == false)
+    {
+        attackPlayer(ninja, healthbar);
+    }
+
     botMove();
+}
+
+void Ennemy::attackPlayer(Ninja &ninja, healthBar &healthbar)
+{
+    if (hitboxArm.getGlobalBounds().intersects(ninja.getHitBoxBody().getGlobalBounds()))
+    {
+        alreadyAttack = true;
+        ninja.setLife(ninja.getLife() - CONST_ENNEMY_DAMAGE_ATTACK_1);
+        healthbar.setHealth(-CONST_ENNEMY_DAMAGE_ATTACK_1);
+        ninja.setHurt(true);
+    }
 }

@@ -145,7 +145,7 @@ void Input::checkInput(Ninja &p1)
     {
         if (button.espace && p1.getonBlock())
         {
-            p1.setJumpLength(30);
+            p1.setJumpLength(CONST_PLAYER_JUMP_SPEED);
             p1.setGravity(1.5);
         }
     }

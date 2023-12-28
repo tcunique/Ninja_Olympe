@@ -1,6 +1,7 @@
 #pragma once
 #include "person.hpp"
 #include "data.hpp"
+#include "healthbar.hpp"
 #include "ninja.hpp"
 
 class Ennemy : public Person
@@ -23,7 +24,9 @@ class Ennemy : public Person
         void setSpriteIdle(sf::Sprite spriteIdle);
         void setTextureIdle(sf::Texture textureIdle);
         void setWalkY(Dir walkY);
-        
+        void setArmHitboxLength(sf::Vector2f size);
+        void setArmHitboxPosX(float x);
+        void setArmHitboxPosY(float y);
 
         // Animation
         sf::Sprite animation();
@@ -39,11 +42,12 @@ class Ennemy : public Person
 
         // Move bot
         void botMove();
-        void followPlayer(Ninja &ninja);
-        void mainMove(Ninja &ninja);
+        void followPlayer(Ninja &ninja, healthBar &healthbar);
+        void mainMove(Ninja &ninja, healthBar &healthbar);
 
         // Elapsed time for attack
         bool elpasedTime();
+        void attackPlayer(Ninja &ninja, healthBar &healthbar);
 
     protected:
         // Le perso en idle
@@ -81,4 +85,7 @@ class Ennemy : public Person
         bool walk;
         bool run;
         bool attack1;
+        bool attack;
+
+        bool alreadyAttack;
 };

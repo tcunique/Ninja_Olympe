@@ -4,6 +4,7 @@
 healthBar::healthBar()
 {
     SpriteHealthBarL();
+    convexHealthBarL();
     health = CONST_PLAYER_HEALTH;
 }
 
@@ -14,6 +15,7 @@ healthBar::~healthBar()
 void healthBar::setHealthBarPos(sf::Vector2f pos)
 {
     SpritehealthBar.setPosition(pos);
+    healthBarShape.setPosition(pos + sf::Vector2f(60, 58));
 }
 
 sf::Sprite healthBar::getSpriteHealthBar()
@@ -24,6 +26,11 @@ sf::Sprite healthBar::getSpriteHealthBar()
 sf::Texture healthBar::getTextureHealthBar()
 {
     return textureHealthBar;
+}
+
+sf::ConvexShape healthBar::getHealthBarShape()
+{
+    return healthBarShape;
 }
 
 void healthBar::setSpriteHealthBar(sf::Sprite spriteHealthBar)
@@ -44,6 +51,50 @@ void healthBar::SpriteHealthBarL()
     }
     textureHealthBar.setSmooth(true);
     SpritehealthBar.setTexture(textureHealthBar);
-    SpritehealthBar.setScale(2, 2);
+    SpritehealthBar.setScale(2.5, 2.5);
     SpritehealthBar.setPosition(0, 0);
+}
+
+void healthBar::convexHealthBarL()
+{
+    healthBarShape.setPointCount(7);
+    healthBarShape.setPoint(0, sf::Vector2f(0, 0));
+    healthBarShape.setPoint(1, sf::Vector2f(200, 0));
+    healthBarShape.setPoint(2, sf::Vector2f(210, 7));
+    healthBarShape.setPoint(3, sf::Vector2f(220, 14));
+    healthBarShape.setPoint(4, sf::Vector2f(210, 21));
+    healthBarShape.setPoint(5, sf::Vector2f(200, 28));
+    healthBarShape.setPoint(6, sf::Vector2f(0, 28));
+    healthBarShape.setFillColor(sf::Color::Green);
+}
+
+void healthBar::updateColor()
+{
+    if (health > CONST_PLAYER_HEALTH / 2)
+    {
+        healthBarShape.setFillColor(sf::Color::Green);
+    }
+    else if (health > CONST_PLAYER_HEALTH / 4)
+    {
+        healthBarShape.setFillColor(sf::Color::Yellow);
+    }
+    else
+    {
+        healthBarShape.setFillColor(sf::Color::Red);
+    }
+}
+
+void healthBar::setHealth(float health)
+{
+    this->health += health;
+    if (this->health <= 0)
+    {
+        this->health = 0;
+    }
+    updateColor();
+    healthBarShape.setPoint(1, sf::Vector2f(200 * (this->health / CONST_PLAYER_HEALTH), 0));
+    healthBarShape.setPoint(2, sf::Vector2f(210 * (this->health / CONST_PLAYER_HEALTH), 7));
+    healthBarShape.setPoint(3, sf::Vector2f(220 * (this->health / CONST_PLAYER_HEALTH), 14));
+    healthBarShape.setPoint(4, sf::Vector2f(210 * (this->health / CONST_PLAYER_HEALTH), 21));
+    healthBarShape.setPoint(5, sf::Vector2f(200 * (this->health / CONST_PLAYER_HEALTH), 28));
 }
