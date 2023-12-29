@@ -23,6 +23,7 @@ const int CONST_POSITION_X = 100;
 const int CONST_POSITION_Y = 100;
 const std::string CONST_PLAYER_NAME = "Ninja";
 const float CONST_PLAYER_HP = 100;
+const float CONST_PLAYER_DAMAGE_ATTACK_1 = 10;
 const int CONST_START_PIECE = 0;
 
 // Hitbox Arm Player

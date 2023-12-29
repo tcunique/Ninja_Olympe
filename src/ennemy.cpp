@@ -40,6 +40,8 @@ void Ennemy::move(float movex, float movey)
     spriteWalk.move(movex, movey);
     spriteRun.move(movex, movey);
     spriteAttack_1.move(movex, movey);
+    spriteHurt.move(movex, movey);
+    spriteDeath.move(movex, movey);
     hitbox.move(movex, movey);
     hitboxBody.move(movex, movey);
     hitboxArm.move(movex, movey);
@@ -90,6 +92,21 @@ void Ennemy::setTextureIdle(sf::Texture textureIdle)
 void Ennemy::setWalkY(Dir walkY)
 {
     walkCount.y = walkY;
+}
+
+void Ennemy::setHurt(bool resp)
+{
+    isHurt = resp;
+}
+
+float Ennemy::getLife()
+{
+    return hp;
+}
+
+healthBar& Ennemy::getHealthBar()
+{
+    return healthbar;
 }
 
 void Ennemy::setArmHitboxLength(sf::Vector2f size)
@@ -198,6 +215,51 @@ sf::Sprite Ennemy::animationAttack1()
     return spriteAttack_1;
 }
 
+sf::Sprite Ennemy::animationHurt()
+{
+    if (hurtCount * 128 >= textureHurt.getSize().x)
+    {
+        hurtCount = 1;
+        isHurt = false;
+    }
+    if (walkCount.y == Dir::Right)
+    {
+        spriteHurt.setTextureRect(sf::IntRect(hurtCount * 128, 0, 128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
+    } else 
+    {
+        spriteHurt.setTextureRect(sf::IntRect(hurtCount * 128, 0, -128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+    }
+    fpsCount = 0;
+    hurtCount++;
+    return spriteHurt;
+}
+
+sf::Sprite Ennemy::animationDeath()
+{
+    if(fpsCount < switchFps)
+    {
+        fpsCount += 1;
+    } 
+    if (fpsCount >= switchFps)
+    {
+        if (deathCount * 128 < textureDeath.getSize().x)
+        {
+            if (walkCount.y == Dir::Right)
+            {
+                spriteDeath.setTextureRect(sf::IntRect(deathCount * 128, 0, 128, 128));
+            } else 
+            {
+                spriteDeath.setTextureRect(sf::IntRect(deathCount * 128, 0, -128, 128));
+            }
+            deathCount++;
+            fpsCount = 0;
+        }
+    }
+    return spriteDeath;
+}
+
 sf::Sprite Ennemy::animation()
 {
     if(fpsCount < switchFps)
@@ -208,6 +270,10 @@ sf::Sprite Ennemy::animation()
     // Permet de fixer un fps et que l'image de ne se charge pas tout le temps
     if (fpsCount >= switchFps)
     {
+        if (isHurt == true)
+        {
+            return animationHurt();
+        }
         if (attack1 == true)
         {
             return animationAttack1();
@@ -227,6 +293,10 @@ sf::Sprite Ennemy::animation()
         }
     } else 
     {
+        if (isHurt == true)
+        {
+            return spriteHurt;
+        }
         if (attack1 == true)
         {
             return spriteAttack_1;
@@ -371,4 +441,21 @@ void Ennemy::displayHealthBar(Ninja p1, sf::RenderWindow &window)
     window.draw(healthbar.getHealthBarShape());
     // interface.draw(health);
     window.draw(healthbar.getSpriteHealthBar());
+}
+
+void Ennemy::setLife(float life)
+{
+    hp = life;
+}
+
+bool Ennemy::checkAlive()
+{
+    if (hp <= 0)
+    {
+        isAlive = false;
+        return false;
+    } else 
+    {
+        return true;
+    }
 }

@@ -47,6 +47,7 @@ class Player : public Person
         sf::Vector2<unsigned int> getWalkCount();
         float getLife();
         healthBar& getHealthBar();
+        bool getAlreadyAttack();
 
         //Setter
         void setIdle(bool resp);
@@ -56,6 +57,7 @@ class Player : public Person
         void setAttack_1(bool resp);
         void setLife(float life);
         void setHurt(bool resp);
+        void setAlreadyAttack(bool resp);
 
         // Animation
         sf::Sprite animation();
@@ -72,9 +74,6 @@ class Player : public Person
 
         // Healthbar
         void displayHealthBar(sf::RenderWindow &window);
-
-        //attack 
-        
 
         bool checkAlive();
 
@@ -134,6 +133,8 @@ class Player : public Person
         bool attack_1_state;
         bool isAlive;
         bool isHurt;
+
+        bool alreadyAttack;
 
         // Hp of the player
         float hp;

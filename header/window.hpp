@@ -53,4 +53,6 @@ class Interface
         // Police de caractère
         void LoadFont();
         void setText(std::string str);
+
+        void checkAlive();
 };

@@ -19,6 +19,8 @@ class Ennemy : public Person
         sf::RectangleShape getHitBoxBody();
         sf::RectangleShape getHitBoxArm();
         unsigned int getWalkY();
+        healthBar &getHealthBar();
+        float getLife();
 
         // set
         void setSpriteIdle(sf::Sprite spriteIdle);
@@ -27,6 +29,8 @@ class Ennemy : public Person
         void setArmHitboxLength(sf::Vector2f size);
         void setArmHitboxPosX(float x);
         void setArmHitboxPosY(float y);
+        void setLife(float life);
+        void setHurt(bool resp);
 
         // Animation
         sf::Sprite animation();
@@ -53,6 +57,8 @@ class Ennemy : public Person
 
         // Healthbar
         void displayHealthBar(Ninja p1, sf::RenderWindow &window);
+
+        bool checkAlive();
 
     protected:
         // Le perso en idle
@@ -108,4 +114,5 @@ class Ennemy : public Person
 
         // Healthbar
         healthBar healthbar {false};
+        float hp;
 };

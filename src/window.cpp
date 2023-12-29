@@ -57,29 +57,13 @@ void Interface::Launch()
         // Affichage du fond
         interface.draw(backgroundSprite);
 
-        // Vérification des inputs
-        if (p1.checkAlive())
-        {
-            input.checkInput(p1);       
-            // Affichage de personnages
-            sf::Sprite anim = p1.animation();
-            interface.draw(anim); // Dessine un sprite
-        } else 
-        {
-            interface.draw(p1.animationDeath());
-        }
+        // Vérification des inputs et de la vie
+        checkAlive();
         
-        // botMove
-        ennemy.mainMove(p1, p1.getHealthBar());
-
         // Vérification de présence
         // bloc.presence(p1);
         world.presenceOnGround(p1);
         world.presenceOnGroundBot(ennemy);
-
-        // Affichage de l'ennemi
-        sf::Sprite animEnnemy = ennemy.animation();
-        interface.draw(animEnnemy);
 
         // Create Map
         loadMap();
@@ -126,4 +110,31 @@ void Interface::loadMap() {
     }
 
     // interface.draw(world.getHitbox());
+}
+
+void Interface::checkAlive()
+{
+    // Vérification des inputs
+    if (p1.checkAlive())
+    {
+        input.checkInput(p1, ennemy);       
+        // Affichage de personnages
+        sf::Sprite anim = p1.animation();
+        interface.draw(anim); // Dessine un sprite
+    } else 
+    {
+        interface.draw(p1.animationDeath());
+    }
+
+    // botMove
+    if (ennemy.checkAlive())
+    {
+        ennemy.mainMove(p1, p1.getHealthBar());
+        // Affichage de l'ennemi
+        sf::Sprite animEnnemy = ennemy.animation();
+        interface.draw(animEnnemy);
+    } else 
+    {
+        interface.draw(ennemy.animationDeath());
+    }
 }

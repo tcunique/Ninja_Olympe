@@ -135,7 +135,18 @@ void Input::checkInputSpace(Ninja &p1)
     }
 }
 
-void Input::checkInput(Ninja &p1)
+void Input::attack_1(Ninja &p1, samurai &samurai1)
+{
+    if (p1.getArmHitBox().getGlobalBounds().intersects(samurai1.getHitBoxBody().getGlobalBounds()))
+    {
+        p1.setAlreadyAttack(true);
+        samurai1.setLife(samurai1.getLife() - CONST_PLAYER_DAMAGE_ATTACK_1);
+        samurai1.getHealthBar().setHealth(-CONST_PLAYER_DAMAGE_ATTACK_1);
+        samurai1.setHurt(true);
+    }
+}
+
+void Input::checkInput(Ninja &p1, samurai &samurai1)
 {
     if (!p1.getonBlock() && p1.getJump() == false)
     {
@@ -153,6 +164,10 @@ void Input::checkInput(Ninja &p1)
     if (button.k && !p1.getAttack_1())
     {
         checkInputK(p1.getWalkCount().y, p1);
+        if (p1.getAttack_1() && !p1.getAlreadyAttack())
+        {
+            attack_1(p1, samurai1);
+        }
     }
     if (button.q)
     {

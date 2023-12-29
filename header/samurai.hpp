@@ -22,5 +22,4 @@ class samurai : public Ennemy
         void SpriteDeathLoad();
     private :
         // hp 
-        int hp;
 };

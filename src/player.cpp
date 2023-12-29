@@ -12,6 +12,7 @@ Player::Player()
     jump_length = 0;
     isAlive = true;
     isHurt = false;
+    alreadyAttack = false;
 
     // Gère les animations
     idle_count = 1;
@@ -89,6 +90,11 @@ int Player::getJumpLength()
 void Player::setJumpLength(int jump_length)
 {
     this->jump_length = jump_length;
+}
+
+bool Player::getAlreadyAttack()
+{
+    return alreadyAttack;
 }
 
 sf::Vector2<unsigned int> Player::getWalkCount()
@@ -221,6 +227,11 @@ bool Player::getAlive()
     return isAlive;
 }
 
+void Player::setAlreadyAttack(bool resp)
+{
+    alreadyAttack = resp;
+}
+
 healthBar& Player::getHealthBar()
 {
     return healthbar;
@@ -308,6 +319,7 @@ sf::Sprite Player::animationAttack_1()
     {
         attack_1_count = 1;
         attack_1_state = false;
+        alreadyAttack = false;
         setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
         setArmHitboxPosX(x + 15);
     } else 

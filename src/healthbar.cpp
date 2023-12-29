@@ -4,14 +4,13 @@
 healthBar::healthBar(bool isPlayer)
 {
     SpriteHealthBarL();
+    convexHealthBarPlayerL();
     if (isPlayer)
     {
-        convexHealthBarPlayerL();
         health = CONST_PLAYER_HEALTH;
     } else 
     {
         health = CONST_ENNEMY_HP;
-        convexHealthBarPlayerL();
     }
 }
 

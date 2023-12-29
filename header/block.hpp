@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "../header/ninja.hpp"
+#include "ninja.hpp"
 
 using namespace sf;
 
