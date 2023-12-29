@@ -5,7 +5,7 @@
 class healthBar
 {
     public:
-        healthBar();
+        healthBar(bool isPlayer);
         ~healthBar();
 
         sf::Sprite getSpriteHealthBar();
@@ -19,7 +19,8 @@ class healthBar
         void setHealth(float health);
 
         void SpriteHealthBarL();
-        void convexHealthBarL();
+        void convexHealthBarPlayerL();
+        void convexHealthBarEnnemyL();
         void updateColor();
 
     private:

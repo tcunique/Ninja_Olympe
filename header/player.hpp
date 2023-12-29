@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "person.hpp"
+#include "healthbar.hpp"
 
 class Player : public Person
 {
@@ -45,6 +46,7 @@ class Player : public Person
         bool getAttack_1();
         sf::Vector2<unsigned int> getWalkCount();
         float getLife();
+        healthBar& getHealthBar();
 
         //Setter
         void setIdle(bool resp);
@@ -68,9 +70,18 @@ class Player : public Person
         // View of the player
         sf::View view;
 
+        // Healthbar
+        void displayHealthBar(sf::RenderWindow &window);
+
+        //attack 
+        
+
         bool checkAlive();
 
     protected:
+        // Healthbar
+        healthBar healthbar {true};
+
         // Hitbox
         sf::RectangleShape hitbox;
         sf::RectangleShape arm;

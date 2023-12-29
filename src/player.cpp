@@ -221,6 +221,11 @@ bool Player::getAlive()
     return isAlive;
 }
 
+healthBar& Player::getHealthBar()
+{
+    return healthbar;
+}
+
 sf::Sprite Player::animationJump()
 {
     if (jump_count * 128 >= textureJump.getSize().x)
@@ -434,4 +439,19 @@ bool Player::checkAlive()
     {
         return true;
     }
+}
+
+void Player::displayHealthBar(sf::RenderWindow &window)
+{
+    // Affichage de la barre de vie
+    sf::Vector2f playerPosition = getPos();
+    sf::Vector2f healthBarPosition = playerPosition + sf::Vector2f(-CONST_WIDTH/1.9, -CONST_HEIGHT/1.9);
+
+    // Mettre la position de la barre de vie à la position du joueur
+    healthbar.setHealthBarPos(healthBarPosition);
+
+    // Affichage de la barre de vie
+    window.draw(healthbar.getHealthBarShape());
+    // interface.draw(health);
+    window.draw(healthbar.getSpriteHealthBar());
 }

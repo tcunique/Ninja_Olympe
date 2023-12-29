@@ -8,11 +8,16 @@ samurai::samurai()
     SpriteWalkLoad();
     SpriteRunLoad();
     SpriteAttack1Load();
+    SpriteHurtLoad();
+    SpriteDeathLoad();
 
     // hitbox
     setHitbox();
     setHitboxBody();
     setHitBoxArm();
+
+    // Hp
+    hp = CONST_ENNEMY_HP;
 }
 
 void samurai::setHitbox()
@@ -91,4 +96,28 @@ void samurai::SpriteAttack1Load()
     spriteAttack_1.setPosition(x, y);
     spriteAttack_1.setScale(CONST_ENNEMY_SIZE, CONST_ENNEMY_SIZE);
     spriteAttack_1.setTextureRect(sf::IntRect(128, 0, 128, 128));
+}
+
+void samurai::SpriteHurtLoad()
+{
+    if (!textureHurt.loadFromFile("sprite/ennemySprite/SamuraiHurt.png"))
+    {
+        std::cout << "Error while loading samurai hurt sprite" << std::endl;
+    }
+    spriteHurt.setTexture(textureHurt);
+    spriteHurt.setPosition(x, y);
+    spriteHurt.setScale(CONST_ENNEMY_SIZE, CONST_ENNEMY_SIZE);
+    spriteHurt.setTextureRect(sf::IntRect(128, 0, 128, 128));
+}
+
+void samurai::SpriteDeathLoad()
+{
+    if (!textureDeath.loadFromFile("sprite/ennemySprite/SamuraiDead.png"))
+    {
+        std::cout << "Error while loading samurai death sprite" << std::endl;
+    }
+    spriteDeath.setTexture(textureDeath);
+    spriteDeath.setPosition(x, y);
+    spriteDeath.setScale(CONST_ENNEMY_SIZE, CONST_ENNEMY_SIZE);
+    spriteDeath.setTextureRect(sf::IntRect(128, 0, 128, 128));
 }

@@ -18,6 +18,8 @@ class samurai : public Ennemy
         void SpriteWalkLoad();
         void SpriteRunLoad();
         void SpriteAttack1Load();
+        void SpriteHurtLoad();
+        void SpriteDeathLoad();
     private :
         // hp 
         int hp;

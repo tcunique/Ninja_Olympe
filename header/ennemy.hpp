@@ -34,6 +34,8 @@ class Ennemy : public Person
         sf::Sprite animationWalk();
         sf::Sprite animationRun();
         sf::Sprite animationAttack1();
+        sf::Sprite animationHurt();
+        sf::Sprite animationDeath();
 
         // Move
         void walkFunction();
@@ -48,6 +50,9 @@ class Ennemy : public Person
         // Elapsed time for attack
         bool elpasedTime();
         void attackPlayer(Ninja &ninja, healthBar &healthbar);
+
+        // Healthbar
+        void displayHealthBar(Ninja p1, sf::RenderWindow &window);
 
     protected:
         // Le perso en idle
@@ -66,11 +71,21 @@ class Ennemy : public Person
         sf::Sprite spriteAttack_1;
         sf::Texture textureAttack_1;
 
+        // Ennemy in hurt mode
+        sf::Sprite spriteHurt;
+        sf::Texture textureHurt;
+
+        // Ennemy in death mode
+        sf::Sprite spriteDeath;
+        sf::Texture textureDeath;
+
         // Animation count 
         unsigned int idleCount;
         sf::Vector2 <unsigned int> walkCount;
         unsigned int runCount;
         unsigned int attackCount1;
+        unsigned int hurtCount;
+        unsigned int deathCount;
 
         // hitbox 
         sf::RectangleShape hitbox;
@@ -86,6 +101,11 @@ class Ennemy : public Person
         bool run;
         bool attack1;
         bool attack;
+        bool isHurt;
+        bool isAlive;
 
         bool alreadyAttack;
+
+        // Healthbar
+        healthBar healthbar {false};
 };

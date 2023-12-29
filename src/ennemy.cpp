@@ -16,6 +16,8 @@ Ennemy::Ennemy()
     walkCount.y = Dir::Left;
     runCount = 1;
     attackCount1 = 1;
+    hurtCount = 1;
+    deathCount = 1;
 
     // State of the ennemy
     idle = true;
@@ -24,6 +26,8 @@ Ennemy::Ennemy()
     attack1 = false;
     attack = false;
     alreadyAttack = false;
+    isAlive = true;
+    isHurt = false;
 }
 
 Ennemy::~Ennemy()
@@ -352,4 +356,19 @@ void Ennemy::attackPlayer(Ninja &ninja, healthBar &healthbar)
         healthbar.setHealth(-CONST_ENNEMY_DAMAGE_ATTACK_1);
         ninja.setHurt(true);
     }
+}
+
+void Ennemy::displayHealthBar(Ninja p1, sf::RenderWindow &window)
+{
+    // Affichage de la barre de vie
+    sf::Vector2f playerPosition = p1.getPos();
+    sf::Vector2f healthBarPosition = playerPosition + sf::Vector2f(CONST_WIDTH/2.5, -CONST_HEIGHT/1.9);
+
+    // Mettre la position de la barre de vie à la position du joueur
+    healthbar.setHealthBarPos(healthBarPosition);
+
+    // Affichage de la barre de vie
+    window.draw(healthbar.getHealthBarShape());
+    // interface.draw(health);
+    window.draw(healthbar.getSpriteHealthBar());
 }

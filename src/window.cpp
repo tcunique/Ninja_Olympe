@@ -70,7 +70,7 @@ void Interface::Launch()
         }
         
         // botMove
-        ennemy.mainMove(p1, healthbar);
+        ennemy.mainMove(p1, p1.getHealthBar());
 
         // Vérification de présence
         // bloc.presence(p1);
@@ -84,16 +84,11 @@ void Interface::Launch()
         // Create Map
         loadMap();
 
-        // Affichage du hitbox
-        // interface.draw(p1.getArmHitBox());
-        // interface.draw(p1.getHitBoxBody());
-        // interface.draw(ennemy.getHitBoxBody());
-        // interface.draw(ennemy.getHitBoxArm());
-
         interface.setView(p1.getView());
 
         // Affichage de la barre de vie
-        displayHealthBar();
+        p1.displayHealthBar(interface);
+        ennemy.displayHealthBar(p1, interface);
 
         // Affichage de la fenêtre
         display();
@@ -131,19 +126,4 @@ void Interface::loadMap() {
     }
 
     // interface.draw(world.getHitbox());
-}
-
-void Interface::displayHealthBar()
-{
-    // Affichage de la barre de vie
-    sf::Vector2f playerPosition = p1.getPos();
-    sf::Vector2f healthBarPosition = playerPosition + sf::Vector2f(-CONST_WIDTH/1.9, -CONST_HEIGHT/1.9);
-
-    // Mettre la position de la barre de vie à la position du joueur
-    healthbar.setHealthBarPos(healthBarPosition);
-
-    // Affichage de la barre de vie
-    interface.draw(healthbar.getHealthBarShape());
-    // interface.draw(health);
-    interface.draw(healthbar.getSpriteHealthBar());
 }

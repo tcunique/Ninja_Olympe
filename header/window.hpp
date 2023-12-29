@@ -34,9 +34,6 @@ class Interface
         // Ajout de la map
         Map world;
 
-        // Ajout de la barre de vie
-        healthBar healthbar;
-
     public:
         // Constructeur et destructeur de la fenêtre
         Interface();
@@ -52,9 +49,6 @@ class Interface
 
         //Background
         void loadMap();
-
-        // Affichage de la barre de vie
-        void displayHealthBar();
 
         // Police de caractère
         void LoadFont();

@@ -1,11 +1,18 @@
 #include "../header/data.hpp"
 #include "../header/healthbar.hpp"
 
-healthBar::healthBar()
+healthBar::healthBar(bool isPlayer)
 {
     SpriteHealthBarL();
-    convexHealthBarL();
-    health = CONST_PLAYER_HEALTH;
+    if (isPlayer)
+    {
+        convexHealthBarPlayerL();
+        health = CONST_PLAYER_HEALTH;
+    } else 
+    {
+        health = CONST_ENNEMY_HP;
+        convexHealthBarPlayerL();
+    }
 }
 
 healthBar::~healthBar()
@@ -55,7 +62,7 @@ void healthBar::SpriteHealthBarL()
     SpritehealthBar.setPosition(0, 0);
 }
 
-void healthBar::convexHealthBarL()
+void healthBar::convexHealthBarPlayerL()
 {
     healthBarShape.setPointCount(7);
     healthBarShape.setPoint(0, sf::Vector2f(0, 0));
@@ -65,6 +72,19 @@ void healthBar::convexHealthBarL()
     healthBarShape.setPoint(4, sf::Vector2f(210, 21));
     healthBarShape.setPoint(5, sf::Vector2f(200, 28));
     healthBarShape.setPoint(6, sf::Vector2f(0, 28));
+    healthBarShape.setFillColor(sf::Color::Green);
+}
+
+void healthBar::convexHealthBarEnnemyL()
+{
+    healthBarShape.setPointCount(7);
+    healthBarShape.setPoint(0, sf::Vector2f(500, 0));
+    healthBarShape.setPoint(1, sf::Vector2f(700, 0));
+    healthBarShape.setPoint(2, sf::Vector2f(710, 7));
+    healthBarShape.setPoint(3, sf::Vector2f(720, 14));
+    healthBarShape.setPoint(4, sf::Vector2f(710, 21));
+    healthBarShape.setPoint(5, sf::Vector2f(700, 28));
+    healthBarShape.setPoint(6, sf::Vector2f(500, 28));
     healthBarShape.setFillColor(sf::Color::Green);
 }
 
