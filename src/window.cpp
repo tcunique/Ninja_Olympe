@@ -38,8 +38,27 @@ bool Interface::isOpen()
     return interface.isOpen();
 }
 
+void Interface::loadMusicIntro()
+{
+    if (!music.openFromFile("music/Intro.ogg"))
+    {
+        std::cout << "Erreur lors du chargement de la musique" << std::endl;
+    }
+}
+
+void Interface::loadMusicGame()
+{
+    if (!music.openFromFile("music/Game.ogg"))
+    {
+        std::cout << "Erreur lors du chargement de la musique" << std::endl;
+    }
+}
+
 void Interface::MenuWindow()
 {
+    loadMusicIntro();
+    music.play();
+    music.setLoop(true);
     while(interface.isOpen())
     {
         // Boucle d'évènements
@@ -56,11 +75,12 @@ void Interface::MenuWindow()
         // Affichage du menu
         menu.draw(interface);
 
-        if (menu.checkMouseOnPlayButton())
+        if (menu.checkMouseOnPlayButton(interface))
         {
+            music.stop();
             return;
         }
-        if (menu.checkMouseOnQuitButton())
+        if (menu.checkMouseOnQuitButton(interface))
         {
             interface.close();
         }
@@ -72,6 +92,9 @@ void Interface::MenuWindow()
 
 void Interface::Play()
 {
+    loadMusicGame();
+    music.play();
+    music.setLoop(true);
     while (interface.isOpen())
     {
         // Boucle d'évènements

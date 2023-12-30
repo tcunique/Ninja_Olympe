@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "../header/menu.hpp"
 #include "../header/input.hpp"
@@ -36,6 +37,9 @@ class Interface
         // Ajout du menu
         Menu menu {CONST_WIDTH, CONST_HEIGHT};
 
+        // musique
+        sf::Music music;
+
     public:
         // Constructeur et destructeur de la fenêtre
         Interface();
@@ -59,4 +63,8 @@ class Interface
         void loadMap();
 
         void checkAlive();
+
+        //Music
+        void loadMusicIntro();
+        void loadMusicGame();
 };

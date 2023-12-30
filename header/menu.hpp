@@ -26,8 +26,8 @@ class Menu
         void draw(sf::RenderWindow &window);
 
         // Check if the mouse is on the button
-        bool checkMouseOnPlayButton();
-        bool checkMouseOnQuitButton();
+        bool checkMouseOnPlayButton(sf::RenderWindow &window);
+        bool checkMouseOnQuitButton(sf::RenderWindow &window);
 
         void LoadFont(std::string path);
 

@@ -97,12 +97,12 @@ void Menu::draw(sf::RenderWindow &window)
     // Draw button play
     window.draw(playButton);
     window.draw(playText);
-    window.draw(playButtonShape);
+    // window.draw(playButtonShape);
 
     // Draw button quit
     window.draw(quitButton);
     window.draw(quitText);
-    window.draw(quitButtonShape);
+    // window.draw(quitButtonShape);
 }
 
 void Menu::LoadFont(std::string path)
@@ -115,18 +115,18 @@ void Menu::LoadFont(std::string path)
     quitText.setFont(font);
 }
 
-bool Menu::checkMouseOnPlayButton()
+bool Menu::checkMouseOnPlayButton(sf::RenderWindow &window)
 {
-    if (playButtonShape.getGlobalBounds().contains(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y) && click == true)
+    if (playButtonShape.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y) && click == true)
     {
         return true;
     }
     return false;
 }
 
-bool Menu::checkMouseOnQuitButton()
+bool Menu::checkMouseOnQuitButton(sf::RenderWindow &window)
 {
-    if (quitButtonShape.getGlobalBounds().contains(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y) && click == true)
+    if (quitButtonShape.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y) && click == true)
     {
         return true;
     }
