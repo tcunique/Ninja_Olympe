@@ -248,7 +248,7 @@ sf::Sprite Player::animationJump()
         spriteJump.setTextureRect(sf::IntRect(jump_count * 128, 0, 128, 128));
     } else 
     {
-        spriteJump.setTextureRect(sf::IntRect(jump_count * 128, 0, -128, 128));
+        spriteJump.setTextureRect(sf::IntRect((jump_count + 1)* 128, 0, -128, 128));
     }
     jump_count++;
     fpsCount = 0;
@@ -268,7 +268,7 @@ sf::Sprite Player::animationWalk()
         spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
     } else 
     {
-        spriteWalk.setTextureRect(sf::IntRect(walk_count.x * 128, 0, -128, 128));
+        spriteWalk.setTextureRect(sf::IntRect((walk_count.x + 1)* 128, 0, -128, 128));
         spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
     }
     fpsCount = 0;
@@ -288,7 +288,7 @@ sf::Sprite Player::animationIdle()
         spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, 128, 128));
     } else 
     {
-        spriteIdle.setTextureRect(sf::IntRect(idle_count * 128, 0, -128, 128));
+        spriteIdle.setTextureRect(sf::IntRect((idle_count + 1)* 128, 0, -128, 128));
     }
     fpsCount = 0;
     idle_count++;
@@ -306,7 +306,7 @@ sf::Sprite Player::animationRun()
         spriteRun.setTextureRect(sf::IntRect(run_count * 128, 0, 128, 128));
     } else 
     {
-        spriteRun.setTextureRect(sf::IntRect(run_count * 128, 0, -128, 128));
+        spriteRun.setTextureRect(sf::IntRect((run_count + 1)* 128, 0, -128, 128));
     }
     run_count++;
     fpsCount = 0;
@@ -329,7 +329,7 @@ sf::Sprite Player::animationAttack_1()
             spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, 128, 128));
         } else 
         {
-            spriteAttack_1.setTextureRect(sf::IntRect(attack_1_count * 128, 0, -128, 128));
+            spriteAttack_1.setTextureRect(sf::IntRect((attack_1_count + 1)* 128, 0, -128, 128));
         }
         attack_1_count++;
         fpsCount = 0;
@@ -350,7 +350,7 @@ sf::Sprite Player::animationHurt()
             spriteHurt.setTextureRect(sf::IntRect(hurt_count * 128, 0, 128, 128));
         } else 
         {
-            spriteHurt.setTextureRect(sf::IntRect(hurt_count * 128, 0, -128, 128));
+            spriteHurt.setTextureRect(sf::IntRect((hurt_count + 1) * 128, 0, -128, 128));
         }
         hurt_count++;
         fpsCount = 0;
@@ -366,18 +366,19 @@ sf::Sprite Player::animationDeath()
     } 
     if (fpsCount >= switchFps)
     {
-        if (death_count * 128 < textureDeath.getSize().x)
+        if (death_count * 128 >= textureDeath.getSize().x)
         {
-            if (walk_count.y == Dir::Right)
-            {
-                spriteDeath.setTextureRect(sf::IntRect(death_count * 128, 0, 128, 128));
-            } else 
-            {
-                spriteDeath.setTextureRect(sf::IntRect(death_count * 128, 0, -128, 128));
-            }
-            death_count++;
-            fpsCount = 0;
+            death_count = 3;
         }
+        if (walk_count.y == Dir::Right)
+        {
+            spriteDeath.setTextureRect(sf::IntRect(death_count * 128, 0, 128, 128));
+        } else 
+        {
+            spriteDeath.setTextureRect(sf::IntRect((death_count) * 128, 0, -128, 128));
+        }
+        death_count++;
+        fpsCount = 0;
     }
     return spriteDeath;
 }

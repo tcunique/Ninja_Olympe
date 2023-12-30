@@ -5,6 +5,7 @@
 #include "ninja.hpp"
 #include "samurai.hpp"
 #include "data.hpp"
+#include "menu.hpp"
 
 using namespace sf;
 
@@ -24,6 +25,8 @@ class Input
         ~Input();
         void InputHandler(Event event, RenderWindow &interface);
         Input::Button getButton();
+
+        void MouseInputHandler(Menu &menu);
 
         // Vérification des inputs
         void checkInput(Ninja &p1, samurai &samurai1);

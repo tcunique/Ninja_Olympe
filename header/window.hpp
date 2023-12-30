@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "../header/menu.hpp"
 #include "../header/input.hpp"
 #include "../header/ninja.hpp"
 #include "../header/block.hpp"
@@ -16,8 +17,6 @@ class Interface
     private:
         RenderWindow interface;
         Event event;
-        Font font;
-        Text text;
         Input input;
 
         // Ajout du personnage
@@ -34,6 +33,9 @@ class Interface
         // Ajout de la map
         Map world;
 
+        // Ajout du menu
+        Menu menu {CONST_WIDTH, CONST_HEIGHT};
+
     public:
         // Constructeur et destructeur de la fenêtre
         Interface();
@@ -47,12 +49,14 @@ class Interface
         // Boucle principale
         void Launch();
 
+        // Menu
+        void MenuWindow();
+
+        // Play 
+        void Play();
+
         //Background
         void loadMap();
-
-        // Police de caractère
-        void LoadFont();
-        void setText(std::string str);
 
         void checkAlive();
 };

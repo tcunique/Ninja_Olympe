@@ -198,3 +198,14 @@ void Input::checkInput(Ninja &p1, samurai &samurai1)
     p1.setRun(false);
     p1.setIdle(true);
 }
+
+void Input::MouseInputHandler(Menu &menu)
+{
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        menu.setClick(true);
+    } else 
+    {
+        menu.setClick(false);
+    }
+}   

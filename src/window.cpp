@@ -38,12 +38,40 @@ bool Interface::isOpen()
     return interface.isOpen();
 }
 
-void Interface::Launch()
+void Interface::MenuWindow()
 {
-    // Chargement de la police de caractère
-    LoadFont();
-    setText("Hello World");
+    while(interface.isOpen())
+    {
+        // Boucle d'évènements
+        while (interface.pollEvent(event))
+        {
+            input.MouseInputHandler(menu);
+        }
+        // Mettre la couleur de fond à noir
+        clear();
 
+        // Affichage du fond
+        interface.draw(backgroundSprite);
+
+        // Affichage du menu
+        menu.draw(interface);
+
+        if (menu.checkMouseOnPlayButton())
+        {
+            return;
+        }
+        if (menu.checkMouseOnQuitButton())
+        {
+            interface.close();
+        }
+
+        // Affichage de la fenêtre
+        display();
+    }
+}
+
+void Interface::Play()
+{
     while (interface.isOpen())
     {
         // Boucle d'évènements
@@ -57,7 +85,7 @@ void Interface::Launch()
         // Affichage du fond
         interface.draw(backgroundSprite);
 
-        // Vérification des inputs et de la vie
+        // Vérification des inputs et de la vie, et fait les animations
         checkAlive();
         
         // Vérification de présence
@@ -80,21 +108,10 @@ void Interface::Launch()
     }
 }
 
-void Interface::LoadFont()
+void Interface::Launch()
 {
-    if (!font.loadFromFile("res/poppins.ttf"))
-    {
-        std::cout << "Erreur lors du chargement de la police de caractère" << std::endl;
-    }
-}
-
-void Interface::setText(std::string str)
-{
-    text.setFont(font);
-    text.setString(str);
-    text.setCharacterSize(24);
-    text.setFillColor(Color::Cyan);
-    text.setStyle(Text::Bold);
+    MenuWindow();
+    Play();
 }
 
 void Interface::loadMap() {

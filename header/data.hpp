@@ -64,5 +64,5 @@ const float CONST_ENNEMY_HP = 100;
 const float CONST_ENNEMY_DAMAGE_ATTACK_1 = 10;
 
 // attack interval for ennemy
-const sf::Time CONST_ATTACK_INTERVAL = sf::seconds(2.0f);
+const sf::Time CONST_ATTACK_INTERVAL = sf::seconds(1.0f);
 

@@ -135,7 +135,7 @@ sf::Sprite Ennemy::animationIdle()
         spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128));
     } else 
     {
-        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128));
+        spriteIdle.setTextureRect(sf::IntRect((idleCount + 1)* 128, 0, -128, 128));
     }
     fpsCount = 0;
     idleCount++;
@@ -156,7 +156,7 @@ sf::Sprite Ennemy::animationWalk()
     } else 
     {
         // std::cout << "Left" << std::endl;
-        spriteWalk.setTextureRect(sf::IntRect(walkCount.x * 128, 0, -128, 128));
+        spriteWalk.setTextureRect(sf::IntRect((walkCount.x + 1)* 128, 0, -128, 128));
         spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
     }
 
@@ -177,7 +177,7 @@ sf::Sprite Ennemy::animationRun()
         spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
     } else 
     {
-        spriteRun.setTextureRect(sf::IntRect(runCount * 128, 0, -128, 128));
+        spriteRun.setTextureRect(sf::IntRect((runCount + 1) * 128, 0, -128, 128));
         spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
     }
     fpsCount = 0;
@@ -194,22 +194,21 @@ sf::Sprite Ennemy::animationAttack1()
         alreadyAttack = false;
         setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH, CONST_PLAYER_ARM_HEIGHT));
         setArmHitboxPosX(x + 120);
-    } else
+    } 
+    if (walkCount.y == Dir::Right)
     {
-        if (walkCount.y == Dir::Right)
-        {
-            setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH + attackCount1 * 22, CONST_PLAYER_ARM_HEIGHT));
-            spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, 128, 128));
-            spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
-        } else 
-        {
-            setArmHitboxPosX(x + 120 - attackCount1 * 22);
-            setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH + attackCount1 * 22, CONST_PLAYER_ARM_HEIGHT));
-            spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, -128, 128));
-            spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
-        }
-        attackCount1++;
+        setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH + attackCount1 * 22, CONST_PLAYER_ARM_HEIGHT));
+        spriteAttack_1.setTextureRect(sf::IntRect(attackCount1 * 128, 0, 128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
+    } else 
+    {
+        setArmHitboxPosX(x + 120 - attackCount1 * 22);
+        setArmHitboxLength(sf::Vector2f(CONST_PLAYER_ARM_WIDTH + attackCount1 * 22, CONST_PLAYER_ARM_HEIGHT));
+        spriteAttack_1.setTextureRect(sf::IntRect((attackCount1 + 1) * 128, 0, -128, 128));
+        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
     }
+    attackCount1++;
+
     fpsCount = 0;
 
     return spriteAttack_1;
@@ -221,18 +220,20 @@ sf::Sprite Ennemy::animationHurt()
     {
         hurtCount = 1;
         isHurt = false;
-    }
-    if (walkCount.y == Dir::Right)
+    } else
     {
-        spriteHurt.setTextureRect(sf::IntRect(hurtCount * 128, 0, 128, 128));
-        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
-    } else 
-    {
-        spriteHurt.setTextureRect(sf::IntRect(hurtCount * 128, 0, -128, 128));
-        spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+        if (walkCount.y == Dir::Right)
+        {
+            spriteHurt.setTextureRect(sf::IntRect(hurtCount * 128, 0, 128, 128));
+            spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, 128, 128)); // Permet d'éviter d'avoir des conflits de sens
+        } else 
+        {
+            spriteHurt.setTextureRect(sf::IntRect((hurtCount + 1) * 128, 0, -128, 128));
+            spriteIdle.setTextureRect(sf::IntRect(idleCount * 128, 0, -128, 128)); // Pareil, empêche les conflits de sens
+        }
+        fpsCount = 0;
+        hurtCount++;
     }
-    fpsCount = 0;
-    hurtCount++;
     return spriteHurt;
 }
 
@@ -244,18 +245,19 @@ sf::Sprite Ennemy::animationDeath()
     } 
     if (fpsCount >= switchFps)
     {
-        if (deathCount * 128 < textureDeath.getSize().x)
+        if (deathCount * 128 >= textureDeath.getSize().x)
         {
-            if (walkCount.y == Dir::Right)
-            {
-                spriteDeath.setTextureRect(sf::IntRect(deathCount * 128, 0, 128, 128));
-            } else 
-            {
-                spriteDeath.setTextureRect(sf::IntRect(deathCount * 128, 0, -128, 128));
-            }
-            deathCount++;
-            fpsCount = 0;
+            deathCount = 3;
         }
+        if (walkCount.y == Dir::Right)
+        {
+            spriteDeath.setTextureRect(sf::IntRect(deathCount * 128, 0, 128, 128));
+        } else
+        {
+            spriteDeath.setTextureRect(sf::IntRect((deathCount+1) * 128, 0, -128, 128));
+        }
+        deathCount++;
+        fpsCount = 0;
     }
     return spriteDeath;
 }
@@ -406,6 +408,10 @@ void Ennemy::botMove()
 
 void Ennemy::mainMove(Ninja &ninja, healthBar &healthbar)
 {
+    if (ninja.checkAlive() == false)
+    {
+        return;
+    }
     followPlayer(ninja, healthbar);
 
     // Check if the ennemy touch the player
