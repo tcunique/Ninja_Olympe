@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "person.hpp"
 #include "healthbar.hpp"
 
@@ -75,6 +76,11 @@ class Player : public Person
         // Healthbar
         void displayHealthBar(sf::RenderWindow &window);
 
+        // sfx
+        void playDamageSfx();
+        void playDeathSfx();
+        void playAttackSfx();
+
         bool checkAlive();
 
     protected:
@@ -138,4 +144,9 @@ class Player : public Person
 
         // Hp of the player
         float hp;
+
+        // path for sfx
+        std::string path;
+        sf::SoundBuffer buffer;
+        sf::Sound sound;
 };

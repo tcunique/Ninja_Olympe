@@ -1,5 +1,7 @@
 #include "../header/player.hpp"
 #include "../header/data.hpp"
+#include <stdlib.h>
+#include <time.h>
 
 Player::Player()
 {
@@ -467,4 +469,29 @@ void Player::displayHealthBar(sf::RenderWindow &window)
     window.draw(healthbar.getHealthBarShape());
     // interface.draw(health);
     window.draw(healthbar.getSpriteHealthBar());
+}
+
+void Player::playDamageSfx()
+{
+    srand(time(NULL));
+    int random = rand() % 10 + 1;
+
+    if (!buffer.loadFromFile(path + "Damage/damage_" + std::to_string(random) + ".ogg"))
+    {
+        std::cout << "Erreur lors du chargement du son" << std::endl;
+    }
+
+    sound.setBuffer(buffer);
+    sound.play();
+}
+
+void Player::playDeathSfx()
+{
+    if (!buffer.loadFromFile(path + "Death/death_1.ogg"))
+    {
+        std::cout << "Erreur lors du chargement du son" << std::endl;
+    }
+
+    sound.setBuffer(buffer);
+    sound.play();
 }

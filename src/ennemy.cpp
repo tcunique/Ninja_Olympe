@@ -417,6 +417,7 @@ void Ennemy::mainMove(Ninja &ninja, healthBar &healthbar)
     // Check if the ennemy touch the player
     if (attack1 == true && alreadyAttack == false)
     {
+        ninja.playDamageSfx();
         attackPlayer(ninja, healthbar);
     }
 

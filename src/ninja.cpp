@@ -16,6 +16,9 @@ Ninja::Ninja()
 
     // Gère les stats
     hp = CONST_PLAYER_HP;
+
+    //sfx
+    path = "music/Ninja/";
 }
 
 Ninja::~Ninja()
