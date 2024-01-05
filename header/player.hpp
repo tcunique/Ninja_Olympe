@@ -49,6 +49,7 @@ class Player : public Person
         float getLife();
         healthBar& getHealthBar();
         bool getAlreadyAttack();
+        bool getAlreadyDead();
 
         //Setter
         void setIdle(bool resp);
@@ -149,4 +150,6 @@ class Player : public Person
         std::string path;
         sf::SoundBuffer buffer;
         sf::Sound sound;
+
+        bool alreadyDead;
 };

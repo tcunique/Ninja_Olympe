@@ -15,6 +15,7 @@ Player::Player()
     isAlive = true;
     isHurt = false;
     alreadyAttack = false;
+    alreadyDead = false;
 
     // Gère les animations
     idle_count = 1;
@@ -229,6 +230,11 @@ bool Player::getAlive()
     return isAlive;
 }
 
+bool Player::getAlreadyDead()
+{
+    return alreadyDead;
+}
+
 void Player::setAlreadyAttack(bool resp)
 {
     alreadyAttack = resp;
@@ -381,6 +387,11 @@ sf::Sprite Player::animationDeath()
         }
         death_count++;
         fpsCount = 0;
+    }
+    if (getAlive() == false && alreadyDead == false)
+    {
+        playDeathSfx();
+        alreadyDead = true;
     }
     return spriteDeath;
 }
