@@ -60,6 +60,10 @@ class Ennemy : public Person
 
         bool checkAlive();
 
+        // sfx
+        void playDamageSfx();
+        void playDeathSfx();
+
     protected:
         // Le perso en idle
         sf::Sprite spriteIdle;
@@ -115,4 +119,9 @@ class Ennemy : public Person
         // Healthbar
         healthBar healthbar {false};
         float hp;
+
+        //sfx
+        std::string path;
+        sf::SoundBuffer buffer;
+        sf::Sound sound;
 };

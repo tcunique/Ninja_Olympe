@@ -108,6 +108,9 @@ void Interface::Play()
         // Affichage du fond
         interface.draw(backgroundSprite);
 
+        // Afficage de li'tem 
+        interface.draw(item.getSprite());
+
         // Vérification des inputs et de la vie, et fait les animations
         checkAlive();
         
@@ -152,7 +155,7 @@ void Interface::loadMap() {
     // interface.draw(world.getHitbox());
 }
 
-void Interface::checkAlive()
+void Interface::checkAliveNinja()
 {
     // Vérification des inputs
     if (p1.checkAlive())
@@ -165,7 +168,10 @@ void Interface::checkAlive()
     {
         interface.draw(p1.animationDeath());
     }
+}
 
+void Interface::checkAliveSamurai()
+{
     // botMove
     if (ennemy.checkAlive())
     {
@@ -177,4 +183,45 @@ void Interface::checkAlive()
     {
         interface.draw(ennemy.animationDeath());
     }
+}
+
+void Interface::checkAlive()
+{
+    checkAliveNinja();
+    checkAliveSamurai();
+}
+
+RenderWindow &Interface::getInterface()
+{
+    return interface;
+}
+
+Sprite &Interface::getBackgroundSprite()
+{
+    return backgroundSprite;
+}
+
+Ninja &Interface::getNinja()
+{
+    return p1;
+}
+
+samurai &Interface::getSamurai()
+{
+    return ennemy;
+}
+
+Map &Interface::getMap()
+{
+    return world;
+}
+
+Event &Interface::getEvent()
+{
+    return event;
+}
+
+Input &Interface::getInput()
+{
+    return input;
 }

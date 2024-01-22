@@ -466,3 +466,17 @@ bool Ennemy::checkAlive()
         return true;
     }
 }
+
+void Ennemy::playDamageSfx()
+{
+    srand(time(NULL));
+    int random = rand() % 3 + 1;
+
+    if (!buffer.loadFromFile(path + "Damage/damage_" + std::to_string(random) + ".ogg"))
+    {
+        std::cout << "Erreur lors du chargement du son" << std::endl;
+    }
+
+    sound.setBuffer(buffer);
+    sound.play();
+}

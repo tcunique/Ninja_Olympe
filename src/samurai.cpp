@@ -18,6 +18,8 @@ samurai::samurai()
 
     // Hp
     hp = CONST_ENNEMY_HP;
+
+    path = "music/Samurai/";
 }
 
 void samurai::setHitbox()

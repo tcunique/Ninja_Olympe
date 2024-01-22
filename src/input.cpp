@@ -167,6 +167,7 @@ void Input::checkInput(Ninja &p1, samurai &samurai1)
         if (p1.getAttack_1() && !p1.getAlreadyAttack())
         {
             attack_1(p1, samurai1);
+            samurai1.playDamageSfx();
         }
     }
     if (button.q)

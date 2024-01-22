@@ -9,6 +9,7 @@
 #include "../header/map.hpp"
 #include "../header/healthbar.hpp"
 #include "../header/samurai.hpp"
+#include "../header/item.hpp"
 #include <vector>
 
 using namespace sf;
@@ -40,6 +41,9 @@ class Interface
         // musique
         sf::Music music;
 
+        //Item 
+        Item item;
+
     public:
         // Constructeur et destructeur de la fenêtre
         Interface();
@@ -63,8 +67,19 @@ class Interface
         void loadMap();
 
         void checkAlive();
+        void checkAliveNinja();
+        void checkAliveSamurai();
 
         //Music
         void loadMusicIntro();
         void loadMusicGame();
+
+        // get interface
+        RenderWindow &getInterface();
+        Sprite &getBackgroundSprite();
+        Ninja &getNinja();
+        samurai &getSamurai();
+        Map &getMap();
+        Event &getEvent();
+        Input &getInput();
 };
