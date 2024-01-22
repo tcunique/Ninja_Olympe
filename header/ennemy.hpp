@@ -3,6 +3,7 @@
 #include "data.hpp"
 #include "healthbar.hpp"
 #include "ninja.hpp"
+#include "item.hpp"
 
 class Ennemy : public Person
 {
@@ -21,6 +22,8 @@ class Ennemy : public Person
         unsigned int getWalkY();
         healthBar &getHealthBar();
         float getLife();
+        Item &getItem();
+        bool getIsAlive();
 
         // set
         void setSpriteIdle(sf::Sprite spriteIdle);
@@ -124,4 +127,7 @@ class Ennemy : public Person
         std::string path;
         sf::SoundBuffer buffer;
         sf::Sound sound;
+
+        // Item 
+        Item paper;
 };

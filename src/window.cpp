@@ -108,9 +108,6 @@ void Interface::Play()
         // Affichage du fond
         interface.draw(backgroundSprite);
 
-        // Afficage de li'tem 
-        interface.draw(item.getSprite());
-
         // Vérification des inputs et de la vie, et fait les animations
         checkAlive();
         
@@ -182,6 +179,7 @@ void Interface::checkAliveSamurai()
     } else 
     {
         interface.draw(ennemy.animationDeath());
+        interface.draw(ennemy.getItem().getSprite());
     }
 }
 

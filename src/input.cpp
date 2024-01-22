@@ -163,11 +163,15 @@ void Input::checkInput(Ninja &p1, samurai &samurai1)
     checkInputSpace(p1);
     if (button.k && !p1.getAttack_1())
     {
+
         checkInputK(p1.getWalkCount().y, p1);
-        if (p1.getAttack_1() && !p1.getAlreadyAttack())
+        if (samurai1.getIsAlive())
         {
-            attack_1(p1, samurai1);
-            samurai1.playDamageSfx();
+            if (p1.getAttack_1() && !p1.getAlreadyAttack())
+            {
+                attack_1(p1, samurai1);
+                samurai1.playDamageSfx();
+            }
         }
     }
     if (button.q)

@@ -45,6 +45,7 @@ void Ennemy::move(float movex, float movey)
     hitbox.move(movex, movey);
     hitboxBody.move(movex, movey);
     hitboxArm.move(movex, movey);
+    paper.move(movex, movey);
     setX(getX() + movex);
     setY(getY() + movey);
 }
@@ -52,6 +53,16 @@ void Ennemy::move(float movex, float movey)
 sf::Sprite Ennemy::getSpriteIdle()
 {
     return spriteIdle;
+}
+
+Item &Ennemy::getItem()
+{
+    return paper;
+}
+
+bool Ennemy::getIsAlive()
+{
+    return isAlive;
 }
 
 sf::Texture Ennemy::getTextureIdle()

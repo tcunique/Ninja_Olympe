@@ -9,7 +9,6 @@
 #include "../header/map.hpp"
 #include "../header/healthbar.hpp"
 #include "../header/samurai.hpp"
-#include "../header/item.hpp"
 #include <vector>
 
 using namespace sf;
@@ -40,9 +39,6 @@ class Interface
 
         // musique
         sf::Music music;
-
-        //Item 
-        Item item;
 
     public:
         // Constructeur et destructeur de la fenêtre

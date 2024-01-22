@@ -12,6 +12,7 @@ class Item
 
         // Get
         sf::Sprite getSprite() { return itemSprite; }
+        void move(float x, float y) { itemSprite.move(x, y); }
     
     private:
         // Hitbox de l'item
