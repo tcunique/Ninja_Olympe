@@ -18,6 +18,13 @@ Map::Map()
     hitbox.setFillColor(sf::Color::Transparent);
     hitbox.setOutlineThickness(1);
     hitbox.setOutlineColor(sf::Color::Red);
+
+    // hitbox maison
+    hitboxHouse.setSize(sf::Vector2f(100, 200));
+    hitboxHouse.setPosition(1100, 700);
+    hitboxHouse.setFillColor(sf::Color::Transparent);
+    hitboxHouse.setOutlineThickness(1);
+    hitboxHouse.setOutlineColor(sf::Color::Red);
 }
 
 Map::~Map()
@@ -32,6 +39,11 @@ sf::RectangleShape Map::getHitbox()
 std::vector<block *> Map::getMonde()
 {
     return monde;
+}
+
+sf::RectangleShape Map::getHitboxHouse()
+{
+    return hitboxHouse;
 }
 
 std::vector<block *> Map::getGround()
@@ -60,6 +72,8 @@ int Map::getHitboxHeight()
 }
 
 void Map::createMap() {
+    //house
+    monde.push_back(new block(1000, 400, 1, 1, "sprite/House/house2.png"));
 
     //ground
     ground.push_back(new block(0, 900, 2, 2, "sprite/Herbe.png"));
@@ -87,7 +101,7 @@ void Map::createMap() {
     
     //Arbre et végétation
     monde.push_back(new block(60, 580, 2.5, 2.5, "sprite/Trees.png"));
-    monde.push_back(new block(300, 868, 2, 2, "sprite/Champignon.png"));
+    monde.push_back(new block(300, 868, 1, 2, "sprite/Champignon.png"));
 }
 
 void Map::presenceOnGround(Ninja &ninja)
@@ -148,5 +162,21 @@ void Map::presenceOnGroundBot(samurai &samurai)
     else
     {
         samurai.setonBlock(false);
+    }
+}
+
+void Map::collisionHouse(Ninja &ninja, sf::RenderWindow &window, sf::Event event)
+{
+    sf::RectangleShape p_pos = ninja.getHitbox();
+
+    if (ninja.getPickUp())
+    {
+        ninja.getText().TextDisplay(window, "You now have the right to enter the house, click E to enter");
+        if (p_pos.getGlobalBounds().intersects(hitboxHouse.getGlobalBounds()))
+        {
+        }
+    } else 
+    {
+        ninja.getText().TextDisplay(window, "You need to find the old paper to enter the house");
     }
 }

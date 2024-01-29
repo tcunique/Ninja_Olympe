@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "person.hpp"
 #include "healthbar.hpp"
+#include "text.hpp"
 
 class Player : public Person
 {
@@ -50,6 +51,8 @@ class Player : public Person
         healthBar& getHealthBar();
         bool getAlreadyAttack();
         bool getAlreadyDead();
+        UIText& getText();
+        bool getPickUp();
 
         //Setter
         void setIdle(bool resp);
@@ -60,6 +63,7 @@ class Player : public Person
         void setLife(float life);
         void setHurt(bool resp);
         void setAlreadyAttack(bool resp);
+        void setPickUp(bool resp);
 
         // Animation
         sf::Sprite animation();
@@ -152,4 +156,9 @@ class Player : public Person
         sf::Sound sound;
 
         bool alreadyDead;
+
+        // Pour afficher les textes associés
+        UIText text;
+
+        bool pickedUp;
 };

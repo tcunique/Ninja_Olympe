@@ -9,6 +9,8 @@
 #include "../header/map.hpp"
 #include "../header/healthbar.hpp"
 #include "../header/samurai.hpp"
+#include "../header/data.hpp"
+#include "../header/text.hpp"
 #include <vector>
 
 using namespace sf;

@@ -5,6 +5,7 @@
 #include "block.hpp"
 #include "person.hpp"
 #include "samurai.hpp"
+#include "ninja.hpp"
 
 
 using namespace sf;
@@ -24,15 +25,20 @@ class Map
         float hitboxPosX;
         float hitboxPosY;
 
+        // Hitbox maison
+        sf::RectangleShape hitboxHouse;
+
     public :
         Map();
         ~Map();
 
         void createMap();
 
+
         std::vector<block *> getMonde();
         std::vector<block *> getGround();
         sf::RectangleShape getHitbox();
+        sf::RectangleShape getHitboxHouse();
         float getHitboxPosX();
         float getHitboxPosY();
         int getHitboxWidth();
@@ -40,4 +46,7 @@ class Map
 
         void presenceOnGround(Ninja &ninja);
         void presenceOnGroundBot(samurai &samurai);
+        
+        // collisiona vec la maison
+        void collisionHouse(Ninja &ninja, sf::RenderWindow &window, sf::Event event);
 };

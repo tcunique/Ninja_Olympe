@@ -108,6 +108,11 @@ void Interface::Play()
         // Affichage du fond
         interface.draw(backgroundSprite);
 
+        // Create Map
+        loadMap();
+
+        interface.setView(p1.getView());
+
         // Vérification des inputs et de la vie, et fait les animations
         checkAlive();
         
@@ -115,11 +120,6 @@ void Interface::Play()
         // bloc.presence(p1);
         world.presenceOnGround(p1);
         world.presenceOnGroundBot(ennemy);
-
-        // Create Map
-        loadMap();
-
-        interface.setView(p1.getView());
 
         // Affichage de la barre de vie
         p1.displayHealthBar(interface);
@@ -150,6 +150,7 @@ void Interface::loadMap() {
     }
 
     // interface.draw(world.getHitbox());
+    // interface.draw(world.getHitboxHouse());
 }
 
 void Interface::checkAliveNinja()
@@ -179,7 +180,11 @@ void Interface::checkAliveSamurai()
     } else 
     {
         interface.draw(ennemy.animationDeath());
-        interface.draw(ennemy.getItem().getSprite());
+        if (ennemy.getItem().getIsPickedUp() == false)
+        {
+            interface.draw(ennemy.getItem().getSprite());
+            ennemy.getItem().collision(p1, interface, event);
+        }
     }
 }
 

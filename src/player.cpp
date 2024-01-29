@@ -16,6 +16,7 @@ Player::Player()
     isHurt = false;
     alreadyAttack = false;
     alreadyDead = false;
+    pickedUp = false;
 
     // Gère les animations
     idle_count = 1;
@@ -54,6 +55,9 @@ void Player::move(float movex, float movey)
 
     // Move la view
     view.move(movex, movey);
+
+    // Move le texte
+    text.move(movex, movey);
 
     // Move les coordonnées
     setX(getX() + movex);
@@ -110,6 +114,11 @@ bool Player::getIdle()
     return idle;
 }
 
+bool Player::getPickUp()
+{
+    return pickedUp;
+}
+
 unsigned int Player::getJumpCount()
 {
     return jump_count;
@@ -133,6 +142,11 @@ bool Player::getAttack_1()
 sf::RectangleShape Player::getHitbox()
 {
     return hitbox;
+}
+
+void Player::setPickUp(bool resp)
+{
+    pickedUp = resp;
 }
 
 void Player::setArmHitboxLength(sf::Vector2f size)
@@ -505,4 +519,9 @@ void Player::playDeathSfx()
 
     sound.setBuffer(buffer);
     sound.play();
+}
+
+UIText &Player::getText()
+{
+    return text;
 }
