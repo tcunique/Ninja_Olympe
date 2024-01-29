@@ -65,6 +65,7 @@ class Player : public Person
         void setHurt(bool resp);
         void setAlreadyAttack(bool resp);
         void setPickUp(bool resp);
+        void setPos(float x, float y);
 
         // Animation
         sf::Sprite animation();

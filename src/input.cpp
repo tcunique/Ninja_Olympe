@@ -14,7 +14,7 @@ Input::~Input()
 {
 }
 
-void Input::InputHandler(Event event, RenderWindow &interface)
+void Input::InputHandler(Event event, RenderWindow &interface, Menu &menu)
 {
     if (event.type == sf::Event::Closed)
         interface.close();
@@ -74,6 +74,16 @@ void Input::InputHandler(Event event, RenderWindow &interface)
             break;
         default:
             break;
+    }
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        menu.setClick(true);
+        // std::cout << "Mouse Clicked" << std::endl;
+    } else 
+    {
+        menu.setClick(false);
+        // std::cout << "Mouse Not Clicked" << std::endl;
     }
     
 }
@@ -209,8 +219,10 @@ void Input::MouseInputHandler(Menu &menu)
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         menu.setClick(true);
+        // std::cout << "Mouse Clicked" << std::endl;
     } else 
     {
         menu.setClick(false);
+        // std::cout << "Mouse Not Clicked" << std::endl;
     }
 }   

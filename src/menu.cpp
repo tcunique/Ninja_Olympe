@@ -113,7 +113,7 @@ void Menu::LaunchButtonQuit(int width, int height)
     quitButtonShape.setSize(sf::Vector2f(quitButton.getGlobalBounds().width/1.2, quitButton.getGlobalBounds().height/1.7));
     quitButtonShape.setPosition(quitButton.getPosition() + sf::Vector2f(quitButton.getGlobalBounds().width/13, quitButton.getGlobalBounds().height/5));
     quitButtonShape.setFillColor(sf::Color::Transparent);
-    quitButtonShape.setOutlineColor(sf::Color::Red);
+    quitButtonShape.setOutlineColor(sf::Color::Yellow);
     quitButtonShape.setOutlineThickness(2);
 }
 
@@ -160,6 +160,7 @@ bool Menu::checkMouseOnPlayButton(sf::RenderWindow &window)
 {
     if (playButtonShape.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y) && click == true)
     {
+        std::cout << "Play" << std::endl;
         return true;
     }
     return false;
@@ -169,6 +170,29 @@ bool Menu::checkMouseOnQuitButton(sf::RenderWindow &window)
 {
     if (quitButtonShape.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y) && click == true)
     {
+        std::cout << "Quit" << std::endl;
+        return true;
+    }
+    return false;
+}
+
+bool Menu::checkMouseOnPlayButtonDead(sf::RenderWindow &window)
+{
+    sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+    if (mouse_pos.x >= 687 && mouse_pos.x <= 895 && mouse_pos.y >= 307 && mouse_pos.y <= 365 && click == true)
+    {
+        std::cout << "Play" << std::endl;
+        return true;
+    }
+    return false;
+}
+
+bool Menu::checkMouseOnQuitButtonDead(sf::RenderWindow &window)
+{
+    sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+    if (mouse_pos.x >= 687 && mouse_pos.x <= 895 && mouse_pos.y >= 421 && mouse_pos.y <= 480 && click == true)
+    {
+        std::cout << "Quit" << std::endl;
         return true;
     }
     return false;

@@ -23,7 +23,7 @@ class Input
     public:
         Input();
         ~Input();
-        void InputHandler(Event event, RenderWindow &interface);
+        void InputHandler(Event event, RenderWindow &interface, Menu &menu);
         Input::Button getButton();
 
         void MouseInputHandler(Menu &menu);

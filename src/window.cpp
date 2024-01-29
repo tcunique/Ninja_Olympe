@@ -77,6 +77,7 @@ void Interface::MenuWindow()
 
         if (menu.checkMouseOnPlayButton(interface))
         {
+            std::cout << "state " << menu.getClick() << std::endl;
             music.stop();
             return;
         }
@@ -92,15 +93,31 @@ void Interface::MenuWindow()
 
 void Interface::DeathMenu()
 {
-    // Affichage d'un fond
     menudeath.draw(interface);
 
-    if (menudeath.checkMouseOnPlayButton(interface))
+    if (menudeath.checkMouseOnPlayButtonDead(interface))
     {
-    }
+        // std::cout << "State " << menudeath.getClick() << std::endl;
+        // std::cout << "Play" << std::endl;
 
-    if(menudeath.checkMouseOnQuitButton(interface))
+        // Résurection des personnages
+        p1.setLife(CONST_PLAYER_HEALTH);
+        ennemy.setLife(CONST_ENNEMY_HP);
+
+        // p1.setLife(CONST_PLAYER_HEALTH);
+        p1.setAlive(true);
+        ennemy.setAlive(true);
+
+        p1.getHealthBar().setHealth(CONST_PLAYER_HEALTH);
+        ennemy.getHealthBar().setHealth(CONST_ENNEMY_HP);
+
+        music.play();
+        music.setLoop(true);
+    } 
+
+    if(menudeath.checkMouseOnQuitButtonDead(interface))
     {
+        std::cout << "Quit" << std::endl;
         interface.close();
     }
 }
@@ -121,7 +138,7 @@ void Interface::Play()
         // Boucle d'évènements
         while (interface.pollEvent(event))
         {
-            input.InputHandler(event, interface);
+            input.InputHandler(event, interface, menudeath);
         }
         // Mettre la couleur de fond à noir
         clear();
@@ -134,8 +151,6 @@ void Interface::Play()
 
         interface.setView(p1.getView());
 
-        // Vérification des inputs et de la vie, et fait les animations
-        checkAlive();
         
         // Vérification de présence
         // bloc.presence(p1);
@@ -153,6 +168,9 @@ void Interface::Play()
         ennemy.displayHealthBar(p1, interface);
 
         // DeathMenu();
+
+        // Vérification des inputs et de la vie, et fait les animations
+        checkAlive();
 
         // Affichage de la fenêtre
         display();

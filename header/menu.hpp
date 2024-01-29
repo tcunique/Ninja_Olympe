@@ -31,6 +31,10 @@ class Menu
         bool checkMouseOnPlayButton(sf::RenderWindow &window);
         bool checkMouseOnQuitButton(sf::RenderWindow &window);
 
+        // Check when dead
+        bool checkMouseOnPlayButtonDead(sf::RenderWindow &window);
+        bool checkMouseOnQuitButtonDead(sf::RenderWindow &window);
+
         void LoadFont(std::string path);
 
     private:

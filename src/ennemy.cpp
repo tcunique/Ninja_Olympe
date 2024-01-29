@@ -491,3 +491,8 @@ void Ennemy::playDamageSfx()
     sound.setBuffer(buffer);
     sound.play();
 }
+
+void Ennemy::setAlive(bool resp)
+{
+    isAlive = resp;
+}

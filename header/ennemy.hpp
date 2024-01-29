@@ -34,6 +34,7 @@ class Ennemy : public Person
         void setArmHitboxPosY(float y);
         void setLife(float life);
         void setHurt(bool resp);
+        void setAlive(bool resp);
 
         // Animation
         sf::Sprite animation();
