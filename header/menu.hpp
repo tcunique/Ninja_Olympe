@@ -6,6 +6,7 @@ class Menu
 {
     public:
         Menu(int width, int height);
+        Menu(int width, int height, bool death);
         ~Menu();
 
         // Load the sprite
@@ -21,6 +22,7 @@ class Menu
 
         // set 
         void setClick(bool click);
+        void setPosition(sf::Vector2f position);
 
         // Draw
         void draw(sf::RenderWindow &window);
@@ -46,7 +48,10 @@ class Menu
         sf::Text playText;
         sf::Text quitText;
 
+        // Fond d'écran
+        sf::RectangleShape background;
+
         // bool du clique de la sourie
         bool click;
-        
+        bool deathconstructor;
 };

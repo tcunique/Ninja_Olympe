@@ -481,6 +481,13 @@ bool Player::checkAlive()
     }
 }
 
+void Player::moveMenu(sf::RenderWindow &window, Menu &menu)
+{
+    sf::Vector2f playerPosition = getPos();
+    sf::Vector2f menuPosition = playerPosition + sf::Vector2f(-90, -200);
+    menu.setPosition(menuPosition);
+}
+
 void Player::displayHealthBar(sf::RenderWindow &window)
 {
     // Affichage de la barre de vie

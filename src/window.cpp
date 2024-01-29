@@ -90,6 +90,27 @@ void Interface::MenuWindow()
     }
 }
 
+void Interface::DeathMenu()
+{
+    // Affichage d'un fond
+    menudeath.draw(interface);
+
+    if (menudeath.checkMouseOnPlayButton(interface))
+    {
+    }
+
+    if(menudeath.checkMouseOnQuitButton(interface))
+    {
+        interface.close();
+    }
+}
+
+void Interface::backgroundLoad()
+{
+    // Affichage du fond
+    interface.draw(backgroundSprite);
+}
+
 void Interface::Play()
 {
     loadMusicGame();
@@ -106,7 +127,7 @@ void Interface::Play()
         clear();
 
         // Affichage du fond
-        interface.draw(backgroundSprite);
+        backgroundLoad();
 
         // Create Map
         loadMap();
@@ -120,10 +141,18 @@ void Interface::Play()
         // bloc.presence(p1);
         world.presenceOnGround(p1);
         world.presenceOnGroundBot(ennemy);
+        if(world.collisionHouse(p1, interface, event))
+        {
+            music.stop();
+            break;
+        }
 
         // Affichage de la barre de vie
         p1.displayHealthBar(interface);
+        p1.moveMenu(interface, menudeath);
         ennemy.displayHealthBar(p1, interface);
+
+        // DeathMenu();
 
         // Affichage de la fenêtre
         display();
@@ -165,6 +194,7 @@ void Interface::checkAliveNinja()
     } else 
     {
         interface.draw(p1.animationDeath());
+        DeathMenu();
     }
 }
 
@@ -190,8 +220,8 @@ void Interface::checkAliveSamurai()
 
 void Interface::checkAlive()
 {
-    checkAliveNinja();
     checkAliveSamurai();
+    checkAliveNinja();
 }
 
 RenderWindow &Interface::getInterface()

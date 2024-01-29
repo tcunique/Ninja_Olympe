@@ -6,6 +6,25 @@ Menu::Menu(int width, int height)
     LaunchButtonPlay(width, height);
     LaunchButtonQuit(width, height);
     click = false;
+    deathconstructor = false;
+}
+
+Menu::Menu(int width, int height, bool death)
+{
+    // Load the font
+    LoadFont("font/Roboto-Medium.ttf");
+
+    // Load the sprite
+    click = false;
+    LaunchButtonPlay(width, height);
+    playText.setString("Retry");
+    LaunchButtonQuit(width, height);
+
+    // Load the background
+    background.setSize(sf::Vector2f(width/1.5, height/1.5));
+    background.setFillColor(sf::Color(255, 255, 255, 200));
+
+    deathconstructor = death;
 }
 
 Menu::~Menu()
@@ -20,6 +39,22 @@ bool Menu::getClick()
 void Menu::setClick(bool click)
 {
     this->click = click;
+}
+
+void Menu::setPosition(sf::Vector2f position)
+{
+    // Set the position of the background
+    background.setPosition(position + sf::Vector2f(-360, -130));
+
+    // Set the position of the button
+    playButton.setPosition(position);
+    playButtonShape.setPosition(position + sf::Vector2f(26, 36));
+    playText.setPosition(position + sf::Vector2f(110, 70));
+    
+    // Set the position of the button
+    quitButton.setPosition(position + sf::Vector2f(0, 200));
+    quitButtonShape.setPosition(position + sf::Vector2f(0, 200) + sf::Vector2f(26, 36));
+    quitText.setPosition(position+ sf::Vector2f(0, 200) + sf::Vector2f(110, 70));
 }
 
 void Menu::SpritePlayButtonLoad(int width, int height)
@@ -94,15 +129,21 @@ sf::Sprite Menu::getQuitButton()
 
 void Menu::draw(sf::RenderWindow &window)
 {
+    // Draw the background
+    if (deathconstructor == true)
+    {
+        window.draw(background);
+    }
+
     // Draw button play
     window.draw(playButton);
     window.draw(playText);
-    // window.draw(playButtonShape);
+    window.draw(playButtonShape);
 
     // Draw button quit
     window.draw(quitButton);
     window.draw(quitText);
-    // window.draw(quitButtonShape);
+    window.draw(quitButtonShape);
 }
 
 void Menu::LoadFont(std::string path)

@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "person.hpp"
 #include "healthbar.hpp"
+#include "menu.hpp"
 #include "text.hpp"
 
 class Player : public Person
@@ -85,6 +86,9 @@ class Player : public Person
         void playDamageSfx();
         void playDeathSfx();
         void playAttackSfx();
+
+        // Menu movement
+        void moveMenu(sf::RenderWindow &window, Menu &menu);
 
         bool checkAlive();
 

@@ -11,6 +11,7 @@
 #include "../header/samurai.hpp"
 #include "../header/data.hpp"
 #include "../header/text.hpp"
+#include "../header/option_menu.hpp"
 #include <vector>
 
 using namespace sf;
@@ -38,6 +39,7 @@ class Interface
 
         // Ajout du menu
         Menu menu {CONST_WIDTH, CONST_HEIGHT};
+        Menu menudeath {CONST_WIDTH, CONST_HEIGHT, true};
 
         // musique
         sf::Music music;
@@ -57,12 +59,14 @@ class Interface
 
         // Menu
         void MenuWindow();
+        void DeathMenu();
 
         // Play 
         void Play();
 
         //Background
         void loadMap();
+        void backgroundLoad();
 
         void checkAlive();
         void checkAliveNinja();

@@ -428,7 +428,6 @@ void Ennemy::mainMove(Ninja &ninja, healthBar &healthbar)
     // Check if the ennemy touch the player
     if (attack1 == true && alreadyAttack == false)
     {
-        ninja.playDamageSfx();
         attackPlayer(ninja, healthbar);
     }
 
@@ -443,6 +442,7 @@ void Ennemy::attackPlayer(Ninja &ninja, healthBar &healthbar)
         ninja.setLife(ninja.getLife() - CONST_ENNEMY_DAMAGE_ATTACK_1);
         healthbar.setHealth(-CONST_ENNEMY_DAMAGE_ATTACK_1);
         ninja.setHurt(true);
+        ninja.playDamageSfx();
     }
 }
 

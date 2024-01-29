@@ -165,18 +165,35 @@ void Map::presenceOnGroundBot(samurai &samurai)
     }
 }
 
-void Map::collisionHouse(Ninja &ninja, sf::RenderWindow &window, sf::Event event)
+bool Map::Input(sf::Event event, Ninja &ninja)
+{
+    if (event.key.code == sf::Keyboard::E)
+    {
+        if (ninja.getPickUp())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Map::collisionHouse(Ninja &ninja, sf::RenderWindow &window, sf::Event event)
 {
     sf::RectangleShape p_pos = ninja.getHitbox();
 
-    if (ninja.getPickUp())
+    if (p_pos.getGlobalBounds().intersects(hitboxHouse.getGlobalBounds()))
     {
-        ninja.getText().TextDisplay(window, "You now have the right to enter the house, click E to enter");
-        if (p_pos.getGlobalBounds().intersects(hitboxHouse.getGlobalBounds()))
+        if (ninja.getPickUp())
         {
+            ninja.getText().TextDisplay(window, "You now have the right to enter the house, click E to enter");
+            if (Input(event, ninja))
+            {
+                return true;
+            }
+        } else 
+        {
+            ninja.getText().TextDisplay(window, "You need to find the old paper to enter the house");
         }
-    } else 
-    {
-        ninja.getText().TextDisplay(window, "You need to find the old paper to enter the house");
     }
+    return false;
 }

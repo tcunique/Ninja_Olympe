@@ -48,5 +48,6 @@ class Map
         void presenceOnGroundBot(samurai &samurai);
         
         // collisiona vec la maison
-        void collisionHouse(Ninja &ninja, sf::RenderWindow &window, sf::Event event);
+        bool collisionHouse(Ninja &ninja, sf::RenderWindow &window, sf::Event event);
+        bool Input(sf::Event event, Ninja &ninja);
 };
