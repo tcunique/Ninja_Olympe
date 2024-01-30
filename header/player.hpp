@@ -83,6 +83,9 @@ class Player : public Person
         // Healthbar
         void displayHealthBar(sf::RenderWindow &window);
 
+        // Dialogue
+        void dialogue(std::string Text, sf::RenderWindow &window);
+
         // sfx
         void playDamageSfx();
         void playDeathSfx();

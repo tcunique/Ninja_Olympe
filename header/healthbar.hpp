@@ -11,6 +11,7 @@ class healthBar
         sf::Sprite getSpriteHealthBar();
         sf::Texture getTextureHealthBar();
         sf::ConvexShape getHealthBarShape();
+        float getHealth();
 
         // Set
         void setSpriteHealthBar(sf::Sprite spriteHealthBar);

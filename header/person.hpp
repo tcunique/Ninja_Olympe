@@ -45,4 +45,8 @@ class Person
         float fpsCount;
         float switchFps;
         float fpsSpeed;
+
+        // Clock for dialogue
+        sf::Clock clock_dialogue;
+        bool wait_dialogue;
 };

@@ -46,7 +46,7 @@ const int CONST_BLOCK_WIDTH = 1000;
 const int CONST_BLOCK_HEIGHT = 100;
 
 // Hit box du sol
-const int CONST_GROUND_WIDTH = 1600;
+const int CONST_GROUND_WIDTH = 4000;
 const int CONST_GROUND_HEIGHT = 100;
 const int CONST_GROUND_POS_X = 0;
 const int CONST_GROUND_POS_Y = 905;
@@ -61,7 +61,7 @@ const int CONST_ENNEMY_POSITION_X = 900;
 const int CONST_ENNEMY_POSITION_Y = 100;
 const std::string CONST_ENNEMY_NAME = "Ennemy";
 const float CONST_ENNEMY_HP = 100;
-const float CONST_ENNEMY_DAMAGE_ATTACK_1 = 20;
+const float CONST_ENNEMY_DAMAGE_ATTACK_1 = 30;
 
 // attack interval for ennemy
 const sf::Time CONST_ATTACK_INTERVAL = sf::seconds(1.0f);

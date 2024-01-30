@@ -33,7 +33,7 @@ class Interface
         // Ajout de la texture et du sprite pour le fond d'écran
         Texture backgroundTexture;
         Sprite backgroundSprite;
-
+        Sprite backgroundSprite2;
         // Ajout de la map
         Map world;
 
@@ -43,6 +43,9 @@ class Interface
 
         // musique
         sf::Music music;
+
+        // clock
+        sf::Clock clock;
 
     public:
         // Constructeur et destructeur de la fenêtre
@@ -60,13 +63,18 @@ class Interface
         // Menu
         void MenuWindow();
         void DeathMenu();
-
+        void EndWindow();
+        
+        //Dialogue 
+        void Dialogue(std::string Text);
+        void Dialogue_end();
         // Play 
         void Play();
 
         //Background
         void loadMap();
         void backgroundLoad();
+        void backgroundLoadEnd();
 
         void checkAlive();
         void checkAliveNinja();
@@ -84,4 +92,9 @@ class Interface
         Map &getMap();
         Event &getEvent();
         Input &getInput();
+
+
+        std::vector<bool> dialogue_end = {false, false, false, false, false};
+
+        bool wait = false;
 };

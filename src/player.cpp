@@ -37,6 +37,24 @@ Player::~Player()
 {
 }
 
+void Player::dialogue(std::string Text, sf::RenderWindow &window)
+{
+    if (wait_dialogue == false)
+    {
+        clock_dialogue.restart();
+        wait_dialogue = true;
+    } else 
+    {
+        if (clock_dialogue.getElapsedTime().asSeconds() >= 2)
+        {
+            wait_dialogue = false;
+        } else 
+        {
+            text.TextDisplay(window, Text);
+        }
+    }
+}
+
 void Player::move(float movex, float movey)
 {
     // MOve les sprites

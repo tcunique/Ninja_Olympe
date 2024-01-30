@@ -17,6 +17,10 @@ Interface::Interface()
     backgroundTexture.setSmooth(true);
     backgroundSprite.setScale(1, 1); // Aggrandi l'image de fond pour qu'elle soit cohérente avec la taille de la fenetre
     backgroundSprite.setTexture(backgroundTexture);
+
+    backgroundSprite2.setScale(1, 1); // Aggrandi l'image de fond pour qu'elle soit cohérente avec la taille de la fenetre
+    backgroundSprite2.setTexture(backgroundTexture);
+    backgroundSprite2.setPosition(0, -1650);
 }
 
 Interface::~Interface()
@@ -109,7 +113,9 @@ void Interface::DeathMenu()
         ennemy.setAlive(true);
 
         p1.getHealthBar().setHealth(CONST_PLAYER_HEALTH);
-        ennemy.getHealthBar().setHealth(CONST_ENNEMY_HP);
+
+        healthBar ennemy_healthbar = ennemy.getHealthBar();
+        ennemy.getHealthBar().setHealth(-ennemy_healthbar.getHealth()+CONST_ENNEMY_HP);
 
         music.play();
         music.setLoop(true);
@@ -126,6 +132,175 @@ void Interface::backgroundLoad()
 {
     // Affichage du fond
     interface.draw(backgroundSprite);
+    interface.draw(backgroundSprite2);    MenuWindow();
+    Play();
+}
+
+void Interface::backgroundLoadEnd()
+{
+    // Affichage du fond
+    if (!backgroundTexture.loadFromFile("sprite/background/Background.png"))
+    {
+        std::cout << "Erreur lors du chargement de l'image du fond" << std::endl;
+    }
+    backgroundTexture.setSmooth(true);
+    backgroundSprite.setScale(3.5, 3.5); // Aggrandi l'image de fond pour qu'elle soit cohérente avec la taille de la fenetre
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setPosition(0, -1650);
+}
+
+void Interface::EndWindow()
+{
+    // Remet le perso en place
+    p1.move(-200, 0);
+    ennemy.move(3000, 0);
+    p1.getText().move(100, 0); // oN remet en place le texte
+    clock.restart();
+    while(interface.isOpen())
+    {
+        // Boucle d'évènements
+        while (interface.pollEvent(event))
+        {
+            input.InputHandler(event, interface, menudeath);
+        }
+        // Mettre la couleur de fond à noir
+        clear();
+
+        backgroundLoadEnd();
+
+        // Map
+        loadMap();
+
+        // COllision de la map
+        world.presenceOnGround(p1);
+
+        interface.setView(p1.getView());
+
+        // Affichage du fond
+        interface.draw(backgroundSprite);
+
+        // Person on the scene
+        checkAliveNinja();
+        sf::Sprite animEnnemy = ennemy.animation();
+        interface.draw(animEnnemy);
+
+        Dialogue_end();
+
+        std::cout << "x :" << p1.getPos().x << std::endl;
+
+        display();
+    }
+}
+
+void Interface::Dialogue_end()
+{
+    if (dialogue_end[0] == false)
+    {
+        sf::Time elapsed = clock.getElapsedTime();
+        if (elapsed.asSeconds() < 3)
+        {
+            p1.getText().TextDisplay(interface, "You : Where am I ?");
+        } else 
+        {
+            dialogue_end[0] = true;
+        }
+    }
+
+    if (dialogue_end[0] == true && dialogue_end[1] == false)
+    {
+        if (p1.getPos().x >= 2700)
+        {
+            if (wait == false)
+            {
+                clock.restart();
+                wait = true;
+            } else 
+            {
+                sf::Time elapsed = clock.getElapsedTime();
+                if (elapsed.asSeconds() < 3)
+                {
+                    p1.getText().TextDisplay(interface, "Stranger : You are in my illusion.");
+                } else 
+                {
+                    dialogue_end[1] = true;
+                    clock.restart();
+                    wait = false;
+                }
+            }
+        }
+    }
+
+    if (dialogue_end[1] == true && dialogue_end[2] == false)
+    {
+        if (p1.getPos().x >= 2700)
+        {
+            if (wait == false)
+            {
+                clock.restart();
+                wait = true;
+            } else 
+            {
+                sf::Time elapsed = clock.getElapsedTime();
+                if (elapsed.asSeconds() < 3)
+                {
+                    p1.getText().TextDisplay(interface, "You : What do you want from me ?");
+                } else 
+                {
+                    dialogue_end[2] = true;
+                    clock.restart();
+                    wait = false;
+                }
+            }
+        }
+    }
+
+    if (dialogue_end[2] == true && dialogue_end[3] == false)
+    {
+        if (p1.getPos().x >= 2700)
+        {
+            if (wait == false)
+            {
+                clock.restart();
+                wait = true;
+            } else 
+            {
+                sf::Time elapsed = clock.getElapsedTime();
+                if (elapsed.asSeconds() < 3)
+                {
+                    p1.getText().TextDisplay(interface, "Stranger : You are trapped in your project");
+                } else 
+                {
+                    dialogue_end[3] = true;
+                    clock.restart();
+                    wait = false;
+                }
+            }
+        }
+    }
+
+    if (dialogue_end[3] == true && dialogue_end[4] == false)
+    {
+        if (p1.getPos().x >= 2700)
+        {
+            if (wait == false)
+            {
+                clock.restart();
+                wait = true;
+            } else 
+            {
+                sf::Time elapsed = clock.getElapsedTime();
+                if (elapsed.asSeconds() < 3)
+                {
+                    p1.getText().TextDisplay(interface, "Stranger : that took you way to much time.");
+                } else 
+                {
+                    dialogue_end[4] = true;
+                    clock.restart();
+                    wait = false;
+                }
+            }
+        }
+    }
 }
 
 void Interface::Play()
@@ -133,6 +308,11 @@ void Interface::Play()
     loadMusicGame();
     music.play();
     music.setLoop(true);
+
+    p1.move(0, 600);
+
+    // Pour le dialogue
+    clock.restart();
     while (interface.isOpen())
     {
         // Boucle d'évènements
@@ -172,9 +352,21 @@ void Interface::Play()
         // Vérification des inputs et de la vie, et fait les animations
         checkAlive();
 
+        // Dialogue
+        Dialogue("You : I Have to get rid of him.");
+
         // Affichage de la fenêtre
         display();
         // interface.setView(interface.getDefaultView());
+    }
+}
+
+void Interface::Dialogue(std::string Text)
+{
+    sf::Time elapsed = clock.getElapsedTime();
+    if (elapsed.asSeconds() < 3)
+    {
+        p1.getText().TextDisplay(interface, Text);
     }
 }
 
@@ -182,6 +374,7 @@ void Interface::Launch()
 {
     MenuWindow();
     Play();
+    EndWindow();
 }
 
 void Interface::loadMap() {

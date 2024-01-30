@@ -117,3 +117,8 @@ void healthBar::setHealth(float health)
     healthBarShape.setPoint(4, sf::Vector2f(210 * (this->health / CONST_PLAYER_HEALTH), 21));
     healthBarShape.setPoint(5, sf::Vector2f(200 * (this->health / CONST_PLAYER_HEALTH), 28));
 }
+
+float healthBar::getHealth()
+{
+    return health;
+} 

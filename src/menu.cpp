@@ -138,12 +138,12 @@ void Menu::draw(sf::RenderWindow &window)
     // Draw button play
     window.draw(playButton);
     window.draw(playText);
-    window.draw(playButtonShape);
+    // window.draw(playButtonShape);
 
     // Draw button quit
     window.draw(quitButton);
     window.draw(quitText);
-    window.draw(quitButtonShape);
+    // window.draw(quitButtonShape);
 }
 
 void Menu::LoadFont(std::string path)
