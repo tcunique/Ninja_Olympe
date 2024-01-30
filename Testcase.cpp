@@ -22,13 +22,14 @@ TEST_SUITE("Player")
 {
     TEST_CASE("Gravity Test and Animation")
     {
+
         Interface interface;
         while (interface.isOpen())
         {
             // Boucle d'évènements
             while(interface.getInterface().pollEvent(interface.getEvent()))
             {
-                interface.getInput().InputHandler(interface.getEvent(), interface.getInterface());
+                interface.getInput().InputHandler(interface.getEvent(), interface.getInterface(), interface.getMenuDeath());
             }
             interface.clear();
 
@@ -43,6 +44,14 @@ TEST_SUITE("Player")
             interface.display();
         }
     }
+
+    TEST_CASE("Operateur")
+    {
+        Ninja p1;
+        samurai ennemy;
+        std::cout << ennemy << std::endl;
+        std::cout << p1 << std::endl;
+    }
 }
 
 TEST_SUITE("Window")
@@ -56,7 +65,7 @@ TEST_SUITE("Window")
             // Boucle d'évènements
             while(interface.getInterface().pollEvent(interface.getEvent()))
             {
-                interface.getInput().InputHandler(interface.getEvent(), interface.getInterface());
+                interface.getInput().InputHandler(interface.getEvent(), interface.getInterface(), interface.getMenuDeath());
             }
 
             interface.clear();
@@ -77,5 +86,17 @@ TEST_SUITE("Window")
     {
         Interface interface;
         interface.Play();
+    }
+
+    TEST_CASE("Death Menu")
+    {
+        Interface interface;
+        interface.DeathMenu();
+    }
+
+    TEST_CASE("End Window")
+    {
+        Interface interface;
+        interface.EndWindow();
     }
 }

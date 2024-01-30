@@ -58,6 +58,14 @@ void Interface::loadMusicGame()
     }
 }
 
+void Interface::loadMusicEnd()
+{
+    if (!music.openFromFile("music/End.ogg"))
+    {
+        std::cout << "Erreur lors du chargement de la musique" << std::endl;
+    }
+}
+
 void Interface::MenuWindow()
 {
     loadMusicIntro();
@@ -132,8 +140,7 @@ void Interface::backgroundLoad()
 {
     // Affichage du fond
     interface.draw(backgroundSprite);
-    interface.draw(backgroundSprite2);    MenuWindow();
-    Play();
+    interface.draw(backgroundSprite2); 
 }
 
 void Interface::backgroundLoadEnd()
@@ -151,6 +158,11 @@ void Interface::backgroundLoadEnd()
 
 void Interface::EndWindow()
 {
+    //Music
+    loadMusicEnd();
+    music.play();
+    music.setLoop(true);
+
     // Remet le perso en place
     p1.move(-200, 0);
     ennemy.move(3000, 0);
@@ -186,10 +198,18 @@ void Interface::EndWindow()
 
         Dialogue_end();
 
-        std::cout << "x :" << p1.getPos().x << std::endl;
-
         display();
     }
+}
+
+Menu &Interface::getMenu()
+{
+    return menu;
+}
+
+Menu &Interface::getMenuDeath()
+{
+    return menudeath;
 }
 
 void Interface::Dialogue_end()
@@ -219,7 +239,7 @@ void Interface::Dialogue_end()
                 sf::Time elapsed = clock.getElapsedTime();
                 if (elapsed.asSeconds() < 3)
                 {
-                    p1.getText().TextDisplay(interface, "Stranger : You are in my illusion.");
+                    p1.getText().TextDisplay(interface, "Stranger : you are dreaming.");
                 } else 
                 {
                     dialogue_end[1] = true;
@@ -243,7 +263,7 @@ void Interface::Dialogue_end()
                 sf::Time elapsed = clock.getElapsedTime();
                 if (elapsed.asSeconds() < 3)
                 {
-                    p1.getText().TextDisplay(interface, "You : What do you want from me ?");
+                    p1.getText().TextDisplay(interface, "You : Wait ... What ?");
                 } else 
                 {
                     dialogue_end[2] = true;
@@ -291,10 +311,34 @@ void Interface::Dialogue_end()
                 sf::Time elapsed = clock.getElapsedTime();
                 if (elapsed.asSeconds() < 3)
                 {
-                    p1.getText().TextDisplay(interface, "Stranger : that took you way to much time.");
+                    p1.getText().TextDisplay(interface, "Stranger : that took you way too much time.");
                 } else 
                 {
                     dialogue_end[4] = true;
+                    clock.restart();
+                    wait = false;
+                }
+            }
+        }
+    }
+
+    if (dialogue_end[4] == true && dialogue_end[5] == false)
+    {
+        if (p1.getPos().x >= 2700)
+        {
+            if (wait == false)
+            {
+                clock.restart();
+                wait = true;
+            } else 
+            {
+                sf::Time elapsed = clock.getElapsedTime();
+                if (elapsed.asSeconds() < 3)
+                {
+                    p1.getText().TextDisplay(interface, "Stranger : Wake Up !! Click Echap Fast !");
+                } else 
+                {
+                    dialogue_end[5] = true;
                     clock.restart();
                     wait = false;
                 }

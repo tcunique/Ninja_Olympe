@@ -31,6 +31,9 @@ class Person
         // Permet de déplacer le perso
         virtual void move(float movex, float movey) = 0;
 
+        // Fonction pour les animations
+        virtual sf::Sprite animation() = 0;
+
     protected:
         float x;
         float y;

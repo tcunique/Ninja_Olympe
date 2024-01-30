@@ -83,6 +83,7 @@ class Interface
         //Music
         void loadMusicIntro();
         void loadMusicGame();
+        void loadMusicEnd();
 
         // get interface
         RenderWindow &getInterface();
@@ -92,9 +93,10 @@ class Interface
         Map &getMap();
         Event &getEvent();
         Input &getInput();
+        Menu &getMenu();
+        Menu &getMenuDeath();
 
-
-        std::vector<bool> dialogue_end = {false, false, false, false, false};
+        std::vector<bool> dialogue_end = {false, false, false, false, false, false, false};
 
         bool wait = false;
 };
